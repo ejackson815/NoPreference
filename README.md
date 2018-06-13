@@ -1,6 +1,5 @@
-﻿# Project 2 - Air Traffic 
-
-#### Group Name: NoPreference
+# Project 2 - Come Fly with Me 
+## Group Name: NoPreference
 -------------------------------
 #### Member Name: 
 #### Daniel ohriner
@@ -11,40 +10,54 @@
 
 ### Purpose 
 
-* To identify the most popular route for variosu airport destination
+* To identify the most popular flight routes by airline between various destination cities
+
+### Restrictions
+*	One of our sources only allow 20,000 API hits before purchasing their API package.  On average there are roughly 100,000 flights per day in the United States.  *Data may be skewed*
 
 ### Scope: 
+Due to the volume of flights per day in the United States, we will focus on 3 airports (LAX, CHI, JFK) and look at the following details YTD (Year-to-Date):
+*	Airport Traffic
+*	Airport Statistics such as On Time, Delays, Cancelled, etc… (Can be broken out by airline as well)
+*	Most Popular Airlines (The airports selected are not Hubs so they should have somewhat of an even balance)
+*	Most popular Routes by Airline and by City
 
-* Selected Airport: 3 outgoing airports 
-* Traffic details 
-* Region: US 
-* Airline: Top 3 
-* Time: year to date 
+### High-Level Requirements
+The visualization must include:
+*	Python Flask powered RESTful API, HTML/CSS, JavaScript, and at least one database (MySQL, Mongo DB, SQLite, etc.)
+*	Should fall into one of the four tracks:
+   1. Custom “creative” D3.js project
+   2. Combination of Web Scraping and Leaflet or Plotly
+   3. Dashboard with multiple charts updating from same data source
+   4. Thick server that performs multiple manipulation on data in database prior to visualization
+*	Include one new JS library
+*	Dataset must be greater than 100 records / data points
+*	Include some level of UI
+*	Final visualization should include at least 3 views
 
+### Affected Parties
+This data visualization will prove useful to frequent flyers (business travelers), last minute bookings, and various other traveling throughout the rest of 2018.
 
+### High-Level Timeline/Schedule
+This is a rough timeline – Timeline to be approved by team members by EOD June 12
+-	June 12, 2018: Approved proposal
+-	June 14, 2018:	
+-	June 16, 2018
+- June 19, 2018
+- June 21, 2018
 
-* Database: 
-a. 
-⋅⋅⋅
-b. 
-⋅⋅⋅
-c. 
-⋅⋅⋅
-d. 
-e. 
+### PROJECT DUE
+6.	Sample Data Visualizations
 
-### Metrics:
-1. Average House price by city
-2. Average School ranking by city
-3. Employment data by city
-4. number of Shops by city
-5. Public Transporation by city
-6. Location data
-7. Other Housing Data
+![1](/images/1.jpg)
 
-### Recommendation: End Produce - What we need to provide to the Client:
-* Various Graph to compare different attribute by city (more than just housing price) 
-* Suggest City choice to different Buyers 
+![2](/images/2.jpg)
+ 
+### References
+[https://aspm.faa.gov/apm/sys/AnalysisAP.asp](https://aspm.faa.gov/apm/sys/AnalysisAP.asp)
+[https://aspm.faa.gov/apm/sys/apm-server-x.asp](https://aspm.faa.gov/apm/sys/apm-server-x.asp)
+[https://developer.flightstats.com/api-docs/flightstatus/v2/airport](https://developer.flightstats.com/api-docs/flightstatus/v2/airport)
+[https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp?pn=1](https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp?pn=1)
+[https://status.flightstats.com/](https://status.flightstats.com/)
+More to come…
 
-
-### Code 
