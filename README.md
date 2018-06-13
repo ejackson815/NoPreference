@@ -54,10 +54,10 @@ This is a rough timeline – Timeline to be approved by team members by EOD June
 ![2](/images/2.jpg)
  
 ### References
-[https://aspm.faa.gov/apm/sys/AnalysisAP.asp](https://aspm.faa.gov/apm/sys/AnalysisAP.asp)
-[https://aspm.faa.gov/apm/sys/apm-server-x.asp](https://aspm.faa.gov/apm/sys/apm-server-x.asp)
-[https://developer.flightstats.com/api-docs/flightstatus/v2/airport](https://developer.flightstats.com/api-docs/flightstatus/v2/airport)
-[https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp?pn=1](https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp?pn=1)
-[https://status.flightstats.com/](https://status.flightstats.com/)
+* [https://aspm.faa.gov/apm/sys/AnalysisAP.asp](https://aspm.faa.gov/apm/sys/AnalysisAP.asp)
+* [https://aspm.faa.gov/apm/sys/apm-server-x.asp](https://aspm.faa.gov/apm/sys/apm-server-x.asp)
+* [https://developer.flightstats.com/api-docs/flightstatus/v2/airport](https://developer.flightstats.com/api-docs/flightstatus/v2/airport)
+* [https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp?pn=1](https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp?pn=1)
+* [https://status.flightstats.com/](https://status.flightstats.com/)
 More to come…
 
