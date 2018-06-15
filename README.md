@@ -2,7 +2,7 @@
 ## Group Name: NoPreference
 -------------------------------
 #### Member Name: 
-#### Daniel ohriner
+#### Daniel Ohriner
 #### Aram Hovasapyan
 #### Elloit Jackson
 #### Weijing Zhang
@@ -11,9 +11,6 @@
 ### Purpose 
 
 * To identify the most popular flight routes by airline between various destination cities
-
-### Restrictions
-*	One of our sources only allow 20,000 API hits before purchasing their API package.  On average there are roughly 100,000 flights per day in the United States.  *Data may be skewed*
 
 ### Scope: 
 Due to the volume of flights per day in the United States, we will focus on 3 airports (LAX, CHI, JFK) and look at the following details YTD (Year-to-Date):
@@ -52,6 +49,9 @@ This is a rough timeline – Timeline to be approved by team members by EOD June
 ![1](/images/1.jpg)
 
 ![2](/images/2.jpg)
+
+### Restrictions
+*	One of our sources only allow 20,000 API hits before purchasing their API package.  On average there are roughly 100,000 flights per day in the United States.  *Data may be skewed*
  
 ### References
 * [https://aspm.faa.gov/apm/sys/AnalysisAP.asp](https://aspm.faa.gov/apm/sys/AnalysisAP.asp)
