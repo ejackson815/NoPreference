@@ -25,8 +25,8 @@
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script>
         $(function () {
-            d3.csv("Airline delayed flights.csv", function (data) {
-                var donutData = getData(data, "Airline delayed flights", "Airline Name",
+            d3.csv("../static/data/airline_delayed_flights.csv", function (data) {
+                var donutData = getData(data, "airline_delayed_flights", "Airline Name",
                     "Delayed Flight Count",[]);
 
                 var select = populateDropDown(donutData[0].data,"#myDropDown","cat");
@@ -37,8 +37,8 @@
             $('#Airline-btn').on('click', function refresh() {
                 d3.select("#donut-charts").selectAll("*").remove();
                 d3.select("#myDropDown").selectAll("*").remove();
-                d3.csv("Airline delayed flights.csv", function (data) {
-                var donutData = getData(data, "Airline delayed flights", "Airline Name",
+                d3.csv("../static/data/airline_delayed_flights.csv", function (data) {
+                var donutData = getData(data, "airline_delayed_flights", "Airline Name",
                     "Delayed Flight Count",[]);
 
                 var select = populateDropDown(donutData[0].data,"#myDropDown","cat");
@@ -50,8 +50,8 @@
             $('#Airport-btn').on('click', function refresh() {
                 d3.select("#donut-charts").selectAll("*").remove();
                 d3.select("#myDropDown").selectAll("*").remove();
-                d3.csv("Airport delayed flights.csv", function (data) {
-                    var donutData = getData(data, "Airport delayed flights", "Airport",
+                d3.csv("../static/data/airport_delayed_flights.csv", function (data) {
+                    var donutData = getData(data, "airport_delayed_flights", "Airport",
                         "# of delayed flights",[]);
 
                 var select = populateDropDown(donutData[0].data,"#myDropDown","cat");
