@@ -1,0 +1,585 @@
+<style>
+    #planeA2 { clip-path: url(#br); }
+    #planeA3 { clip-path: url(#tl); }
+    #planeB2 { clip-path: url(#br); }
+    #planeB3 { clip-path: url(#tl); }
+    #planeD2 { clip-path: url(#tr); }
+    #planeD3 { clip-path: url(#bl); }
+    #planeC2 { clip-path: url(#tr); }
+    #planeC3 { clip-path: url(#bl); }
+    
+    body {
+        overflow-x: hidden;
+    }
+    
+    .flypage {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin: 0;
+        padding: 0;
+        background: transparent url("http://www.independent-software.com/wp-content/uploads/2016/10/plane-1920.jpg") no-repeat 0 0;
+  background-size: cover;
+    }
+    
+    @media (max-width: 800px) {
+      .flypage {
+        background: transparent url("http://www.independent-software.com/wp-content/uploads/2016/10/plane-800.jpg") no-repeat 0 0;  
+      }
+    }			
+    
+    #reload-link {
+        position: absolute; 
+        left: 50%;
+        top: 50%;
+      z-index: 999;
+      padding: 10px 15px 10px 15px;
+        background: #337AB7;
+        font-weight: bold;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        transform: translateX(10000px);
+        opacity: 0;
+    }
+    #reload-link:hover {
+    background: #286090;
+    }
+    #reload-link.fly {
+        animation: reload 10000s linear;
+    }
+    @keyframes reload {
+        0% {
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+        0.05% {
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+        0.06% {
+            transform: translateX(-50%);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-50%);
+            opacity: 1;
+        }
+    }
+    
+    #sunset, #sunset-inner {
+position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;				
+    }
+    #sunset {
+        background: linear-gradient(to bottom, #163C52 0%,#4F4F47 30%,#C5752D 60%,#B7490F 80%, #2F1107 100%);
+    }
+    #sunset-inner {
+        background-image: url()}
+.sunset #sunset-inner {
+    animation: sunset 10000s linear;
+}
+@keyframes sunset {
+    0% { opacity: 0; }
+    0.05%, 100% { opacity: 1; }
+}			
+            
+#frame-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    perspective: 800px;
+  background: linear-gradient(to bottom, #163C52 0%,#4F4F47 30%,#C5752D 60%,#B7490F 80%, #2F1107 100%),
+}
+
+#frame-resize {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform-style: preserve-3d;
+}
+#frame-resize.fly {
+  animation: frame-resize 10000s ease-in;
+}
+@keyframes frame-resize {
+    0.01%, 100% {
+        width: 90vmin;
+        height: 90vmin;
+        top: 50%;
+        left: 50%;
+        margin-left: -45vmin;
+        margin-top: -45vmin;
+    }
+    0.02%, 100% {
+        width: 80vmin;
+        height: 80vmin;
+        top: 50%;
+        left: 50%;
+        margin-left: -40vmin;
+        margin-top: -40vmin;
+    }
+}
+
+#frame-roll {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform-style: preserve-3d;				
+}
+.fly #frame-roll {
+  animation: frame-roll 10000s linear;
+}
+@keyframes frame-roll {
+    0% { transform: rotateX(0) rotateZ(0);  }
+    0.05%, 100% { transform: rotateX(-140deg) rotateZ(40deg);  }
+}			
+
+#frame-fly {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform-style: preserve-3d;				
+}
+.fly #frame-fly {
+  animation: frame-fly 10000s ease-in;
+}
+@keyframes frame-fly {
+   0% {translateX(0);}
+   0.05%{transform : translateX(30vmin);}
+   0.07%, 100%{transform: translateX(-300vmin;)}
+}		
+
+.flybox {
+    position: absolute;
+    overflow: hidden;
+}
+
+.flyside {
+    position: absolute;
+}
+
+#sideA {
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  transform-origin: 100% 100%;	
+}
+.fly #sideA {
+    animation: sideA 100s linear 2s;
+}
+@keyframes sideA {
+    1% {
+        transform: rotateX(-70deg);
+    }
+    100% {
+        transform: rotateX(-70deg);
+    }
+}
+
+#planeA1 {
+    top: 0;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+}
+#planeA1 .flypage {
+    width: 200%;
+    height: 400%;
+    left: -100%;
+}
+
+#planeA2 {
+    top: 0;
+    left: 25%;
+    width: 25%;
+    height: 100%;
+    -webkit-clip-path: url(#br);
+}
+#planeA2 .flypage {
+    width: 400%;
+    height: 400%;
+    left: -100%;
+}
+
+#planeA3 {
+    top: 0;
+    left: 25%;
+    width: 25%;
+    height: 100%;
+    -webkit-clip-path: url(#tl);
+}
+#planeA3 .flypage {
+    width: 400%;
+    height: 400%;
+    left: -100%;
+}
+.fly #planeA3 {
+    animation: planeA3 100s linear 1s;
+}
+@keyframes planeA3 {
+    0% {
+        transform: none;
+    }
+    1% {
+        transform: rotate3d(-1,1,0,179deg) translateZ(-2px);
+    }
+    100% {
+        transform: rotate3d(-1,1,0,179deg) translateZ(-2px);
+    }
+}
+
+
+#sideB {
+    top: 25%;
+    left: 0;
+    width: 100%;
+    height: 25%;
+    transform-style: preserve-3d;
+    transform-origin: 100% 100%;
+}
+.fly #sideB {
+    animation: sideB 100s linear 2s;
+}
+@keyframes sideB {
+    0% {
+        transform: none;
+    }
+    1% {
+        transform: rotateX(70deg);
+    }
+    100% {
+        transform: rotateX(70deg);
+    }
+}
+
+#planeB1 {
+    top: 0;
+    left: 25%;
+    right: 0;
+    bottom: 0;
+}
+#planeB1 .flypage {
+    width: 133%;
+    height: 400%;
+    top: -100%;
+    left: -33%;
+}
+
+#planeB2 {
+    top: 0;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    -webkit-clip-path: url(#br);
+}
+#planeB2 .flypage {
+    width: 400%;
+    height: 400%;
+    top: -100%;
+}
+
+#planeB3 {
+    top: 0;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    -webkit-clip-path: url(#tl);
+}
+#planeB3 .flypage {
+    width: 400%;
+    height: 400%;
+    top: -100%;
+}
+.fly #planeB3 {
+    animation: planeB3 100s linear 1s;
+}
+@keyframes planeB3 {
+    0% {
+      transform: none; 
+    }
+    1% {
+        transform: rotate3d(-1,1,0,179deg) translateZ(-2px);
+    }
+    100% {
+        transform: rotate3d(-1,1,0,179deg) translateZ(-2px);
+    }
+}
+
+#planeB4 {
+    left: 0;
+    top: -100%;
+    width: 25%;
+    height: 100%;
+    transform-origin: 100% 100%;
+}
+#planeB4 .flypage {
+    width: 400%;
+    height: 400%;
+}
+.fly #planeB4 {
+    animation: planeB4 100s linear 1s;
+}
+@keyframes planeB4 {
+    0% {
+        transform: none;
+    }
+    1% {
+        transform: rotate3d(-1,1,0,179deg) translateZ(-2px);
+    }
+    100% {
+        transform: rotate3d(-1,1,0,179deg) translateZ(-2px);
+    }
+}
+
+#sideC {
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform-origin: 0 0;
+}
+.fly #sideC {
+    animation: sideC 100s linear 2s;
+}
+@keyframes sideC {
+    0% {
+        transform: none;
+    }
+    1% {
+        transform: rotateX(70deg);
+    }
+    100% {
+        transform: rotateX(70deg);
+    }
+}
+
+
+#planeC1 {
+    top: 0;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+}
+#planeC1 .flypage {
+    width: 200%;
+    height: 400%;
+    left: -100%;
+    top: -300%;
+}
+
+#planeC2 {
+    top: 0;
+    left: 25%;
+    width: 25%;
+    height: 100%;
+    -webkit-clip-path: url(#tr);
+}
+#planeC2 .flypage {
+    width: 400%;
+    height: 400%;
+    left: -100%;
+    top: -300%;
+}
+
+#planeC3 {
+    top: 0;
+    left: 25%;
+    width: 25%;
+    height: 100%;
+    -webkit-clip-path: url(#bl);
+}
+#planeC3 .flypage {
+    width: 400%;
+    height: 400%;
+    left: -100%;
+    top: -300%;
+}
+.fly #planeC3 {
+    animation: planeC3 100s linear 1s;
+}
+@keyframes planeC3 {
+    0% {
+        transform: 0%;
+    }
+    1% {
+        transform: rotate3d(1,1,0,179deg) translateZ(0);
+    }
+    100% {
+        transform: rotate3d(1,1,0,179deg) translateZ(0);
+    }
+}
+
+
+#sideD {
+  left: 0;
+    top: 50%;
+    width: 100%;
+    height: 25%;
+    transform-style: preserve-3d;
+    transform-origin: 0 0;
+}
+.fly #sideD {
+    animation: sideD 100s linear 2s;
+}
+@keyframes sideD {
+    0% { transform: none; }
+    1% { transform: rotateX(-70deg); }
+    100% { transform: rotateX(-70deg); }
+}
+
+
+#planeD1 {
+    top: 0;
+    left: 25%;
+    right: 0;
+    bottom: 0;
+}
+#planeD1 .flypage {
+    width: 133%;
+    height: 400%;
+    top: -200%;
+    left: -33%;
+}
+
+#planeD2 {
+    top: 0;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    -webkit-clip-path: url(#tr);
+}
+#planeD2 .flypage {
+    width: 400%;
+    height: 400%;
+    top: -200%;
+}
+
+#planeD3 {
+    top: 0;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    -webkit-clip-path: url(#bl);
+}
+#planeD3 .flypage {
+    width: 400%;
+    height: 400%;
+    top: -200%;
+}
+.fly #planeD3 {
+    animation: planeD3 100s linear 1s;
+}
+@keyframes planeD3 {
+    0%{ transform: none; }
+    1% { transform: rotate3d(1,1,0,179deg) translateZ(-2px); }
+    100% { transform: rotate3d(1,1,0,179deg) translateZ(-2px); }
+}
+
+#planeD4 {
+    left: 0;
+    top: 100%;
+    width: 25%;
+    height: 100%;
+    transform-origin: 100% 0%;
+}
+#planeD4 .flypage {
+    width: 400%;
+    height: 400%;
+    top: -300%;
+}
+.fly #planeD4 {
+    animation: planeD4 100s linear 1s;
+}
+@keyframes planeD4 {
+    0% { transform: none; }
+    1% { transform: rotate3d(1,1,0,179deg) translateZ(-2px); }
+    100% { transform: rotate3d(1,1,0,179deg) translateZ(-2px); }
+}		
+</style>
+<svg height="0" width="0">
+<defs>
+    <clipPath id="br" clipPathUnits="objectBoundingBox"><polygon points="0,1 1,0 1,1" style="fill:#ffffff; stroke-width:0"/></clipPath>
+    <clipPath id="tl" clipPathUnits="objectBoundingBox"><polygon points="0,0 1,0 0,1" style="fill:#ffffff; stroke-width:0"/></clipPath>
+    <clipPath id="tr" clipPathUnits="objectBoundingBox"><polygon points="0,0 1,0 1,1" style="fill:#ffffff; stroke-width:0"/></clipPath>
+    <clipPath id="bl" clipPathUnits="objectBoundingBox"><polygon points="0,0 0,1 1,1" style="fill:#ffffff; stroke-width:0"/></clipPath>
+</defs>
+</svg>    
+
+<div id="sunset" style="transform: translateX(-10000px);">
+<div id="sunset-inner"></div>
+</div>    
+
+<div id="frame-container" style="transform: translateX(-10000px);">
+<div id="frame-resize">
+    <div id="frame-roll">
+        <div id="frame-fly">
+        <div id="sideB" class="flyside">
+            <div id="planeB1" class="flybox"><div class="flypage"></div></div>
+          <div id="planeB2" class="flybox"><div class="flypage"></div></div>
+            <div id="planeB3" class="flybox"><div class="flypage"></div></div>
+            <div id="planeB4" class="flybox"><div class="flypage"></div></div>
+            <div id="sideA" class="flyside">
+                <div id="planeA1" class="flybox"><div class="flypage"></div></div>
+                <div id="planeA2" class="flybox"><div class="flypage"></div></div>				    
+                <div id="planeA3" class="flybox"><div class="flypage"></div></div>
+            </div>   			    
+        </div>
+        <div id="sideD" class="flyside">
+            <div id="planeD1" class="flybox"><div class="flypage"></div></div>		    	
+            <div id="planeD2" class="flybox"><div class="flypage"></div></div>
+            <div id="planeD3" class="flybox"><div class="flypage"></div></div>	        	
+            <div id="planeD4" class="flybox"><div class="flypage"></div></div>					    
+            <div id="sideC" class="flyside">
+                <div id="planeC1" class="flybox"><div class="flypage"></div></div>
+                <div id="planeC2" class="flybox"><div class="flypage"></div></div>
+                <div id="planeC3" class="flybox"><div class="flypage"></div></div>							    	    
+            </div>			    
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+<a id="reload-link" href="#" onclick="window.location.reload(true);">Reset page</a>
+
+<script type="text/javascript">
+function fly() {
+// Hide overflow all:
+    document.body.style.overflow = 'hidden';
+    // Hide the original content:
+    document.getElementById('origpage').style.display = 'none';
+    // Show sunset content, animate it:
+    var sunset = document.getElementById('sunset');
+    sunset.style.transform = 'none';
+    sunset.className += " sunset";				
+    // Show plane content, fly it:
+    var container = document.getElementById('frame-container');
+    container.style.transform = 'none';
+    var elem = document.getElementById('frame-resize');
+    elem.className += " fly";
+    elem = document.getElementById('reload-link');
+    elem.className += " fly";				
+}
+</script>		
+
+</body>
+</html>
+
+
+

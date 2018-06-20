@@ -1,0 +1,139 @@
+<html>
+    <head>
+        <script>
+        // Basic Propeller for Plane
+        var x = 300, dx = -.60, y = 100, dy = 0.9, rad = 50, angle1 = 0, dr = 0.019;
+        var can, ctx, count = 0, clouds = [];
+        window.addEventListener('load', init, false);
+
+        function init(){
+            can = document.getElementById('myCan');
+            ctx = can.getContext('2d');
+            draw_plane();
+            setTimeout(moving, 10); // adding rotation for propeller
+
+            clouds.push([120, 100, 0.7, 1.0]); // y, x, dx scale
+            clouds.push([200, -100, 1.5, 0.7]); // y, x, dx scale
+            clouds.push([220, 200, 2.2, 1.0]); // y, x, dx scale
+            clouds.push([250, 100, 3.2, 1.2]); // y, x, dx scale
+            draw_cloud_one(0);
+            setTimeout(moving,10);
+
+        }
+        //Animation function for Propeller
+        function moving(){
+            ctx.clearRect(0,0,can.width, can.height);
+            draw_plane();
+            draw_cloud_one(0);
+            draw_cloud_one(1);
+            draw_cloud_one(2);
+            draw_cloud_one(3);
+            count++;
+            requestAnimationFrame(moving);
+        }
+
+        function draw_plane(){
+            ctx.save();
+
+            ctx.scale(0.4*(1+count/100), .4*(1+count/100));
+
+
+            draw_plane_body();
+
+            // Draw Spinner for Plane
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+                ctx.lineTo(x,y);
+                ctx.arc(x,y,rad, angle1, angle1 + Math.PI * 1/3, false);
+                ctx.lineTo(x,y);
+                ctx.arc(x,y,rad, angle1 + Math.PI * 2/3, angle1 + Math.PI, false);
+                ctx.lineTo(x,y);
+                ctx.arc(x,y,rad, angle1 + Math.PI * 4/3, angle1 + Math.PI * 5/3, false);
+            ctx.closePath();
+            ctx.fill();
+                
+            //creating rotation
+            angle1 += Math.PI * dr;
+            if(angle1 > Math.PI*2) angle1=0;
+            
+            ctx.beginPath();
+            ctx.fillStyle='green';
+            ctx.arc(x,y,15, 0, 2 * Math.PI, false);
+            ctx.fill();
+
+            x += dx; y+= dy;
+            if (x<-100 || y > can.height) (x=300, y=0,count=0);
+                ctx.restore();
+            }
+        
+        function draw_plane_body(){
+            ctx.save()
+            ctx.fillStyle="tan";
+            ctx.lineCap = "round";
+            ctx.lineWidth = 20;
+
+            //Drawing Main Wing
+            ctx.beginPath();
+            ctx.moveTo(x-100,y);
+            ctx.lineTo(x+100,y);
+            ctx.stroke();
+
+            //Drawing back Wing
+            ctx.beginPath();
+            ctx.moveTo(x-35,y-40);
+            ctx.lineTo(x+30,y-40);
+            ctx.stroke();
+
+            //Drawing Tail Wing
+            ctx.rect(x-10, y-70, 12, 60);
+                ctx.arc(x-3, y-70,6,0,2*Math.PI, false);
+            ctx.fill();
+
+            //body
+            ctx.fillStyle='gray';
+            ctx.beginPath();
+            ctx.arc(x,y,30,0,2*Math.PI,false);
+            ctx.fill();
+            ctx.restore();
+
+        }
+        
+        function draw_cloud_one(i){
+            ctx.save();
+                ctx.scale( clouds[i][3], clouds[i][3]);
+                clouds[i][1] += clouds[i][2];
+
+                var x=clouds[i][1]; var y = clouds[i][0];
+                ctx.fillStyle="white";
+                ctx.shadowColor="yellow";
+                ctx.shadowBlur = 20 + Math.random()*50;
+                if(clouds[i][1] > can.width-400) clouds[i][1]= -200;
+                ctx.beginPath();
+
+                ctx.beginPath();
+                //circle1
+                ctx.arc(x+10,y+5,30,0, Math.PI*2, true);
+                ctx.moveTo(x+50,y-5);
+                //circle2
+                ctx.arc(x+50,y-5,50,0, Math.PI*2, true);
+                ctx.moveTo(x+100,y-20);
+                //circle3
+                ctx.arc(x+100,y-20,50,0, Math.PI*2, true);
+                ctx.moveTo(x+150,y+5);
+                //circle4
+                ctx.arc(x+140,y+5,30,0, Math.PI*2, true);
+                ctx.fill();
+            ctx.restore();
+        }
+        </script>
+    </head>
+    <body>
+        <div style="position: absolute; top: OPX; left: OPX;">
+            <canvas id="myCan" width ="1400" height="620" style ="background:linear-gradient(blue,#b2e6ff)">
+            </canvas>
+        </div>
+    </body>
+</html>
+
+
+
