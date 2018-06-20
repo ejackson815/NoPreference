@@ -49,10 +49,13 @@ body {background-color: teal;}
     line-height: 2em;
 }
 
-
+#s-chart {
+    width: 100%;
+    height: 650px;
+}
 h1 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: teal;
+    color: white;
     font-size: 32px;
     font-weight: 300;
     text-align: center
@@ -60,7 +63,7 @@ h1 {
   
 h2 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: teal;
+    color: white;
     font-size: 26px;
     font-weight: 300;
     text-align: center
@@ -117,3 +120,9 @@ h2 {
     text-align: center;
     height: 50px;
 }
+
+/* Start http://www.cursors-4u.com */ 
+{cursor: url(http://cur.cursors-4u.net/mechanics/mec-2/mec154.ani),
+ url(http://cur.cursors-4u.net/mechanics/mec-2/mec154.png), 
+ auto !important;} 
+ /* End http://www.cursors-4u.com */

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Landing Page</title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+  </head>
+  <body style="background:linear-gradient(blue,#b2e6ff)">
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <!-- Create Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+      <div class="container-fluid">
+        <a class="navbar-brand bg-primary text-white m-2 pl-2 pr-2" href="index.html">Come Fly with Me</a>
+
+          <!-- Create dropdown menu -->
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="summary.html" target="_blank">Summary</a>
+                <a class="dropdown-item" href="detail.html" target="_blank">Detail</a>
+              </div>
+        </div>
+    </nav>
+    <!-- Main Content Area -->
+    <div class="container-fluid">
+      <div class="row mt-5 ml-5 mr-5 mb-5">
+        <div class="col-lg-12 mb-6" style="background-color: blue,#b2e6ff;">
+          <div class="thumbnail">
+            <h1 class="text-white pt-4">Summary</h1>
+            <hr>
+            <iframe id="s-chart" class="embed-responsive-item" src="./plane.html"></iframe>
+
+            <!--summary needs to be updated -->
+            <p>The purpose of this project was to analyze how weather changes as you get closer to the equator. To accomplish this analysis, we first pulled data from The OpenWeather Map API to assembly a dataset on over 500 cities. </p>
+            <br>
+    
+          </div>
+        </div>
+        <!--show case need to be updated -->
+        <div class="col-lg-12 ml-6 mt-12" style="background-color: blue,#b2e6ff;">
+          <h2 class="text-white pt-4">Show Case</h2>
+          <hr>
+          <a href="summary.html" target="_blank">
+            <img class="img-responsive" src="images/temp.png" alt="Latitude vs Max Temperture" style="width:45%"></a>
+          <a href="humidity.html" target="_blank">
+            <img class="img-responsive" src="images/humidity.png" alt="Latitude vs Max Temperture" style="width:45%"></a>
+          <a href="cloudiness.html" target="_blank">
+            <img class="img-responsive" src="images/cloudiness.png" alt="Latitude vs Max Temperture" style="width:45%"></a>
+        
+        </div>
+        </hr>
+      </div>
+    </div>
+  </body>
+  <br>
+  <!--Footer-->
+  <footer class="footer">
+    <!--/.Footer Links--> <!--Copyright-->
+    <div class="container-fluid p-3 mb-2 text-white text-center" style ="background:linear-gradient(blue,#b2e6ff)">
+        No Preference @ Copyright
+    </div>
+      <!--/.Copyright-->
+  </footer>
+  <!--/.Footer-->
+</html>
