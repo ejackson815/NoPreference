@@ -109,13 +109,13 @@ h2 {
 }
 
 .footer {
-    border-top:  5px solid teal;
+    border-top:  5px blue,#b2e6ff;;
     position: relative;
     padding-top: 5px;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: black;
+    background-color: blue,#b2e6ff;;
     color: white;
     text-align: center;
     height: 50px;
