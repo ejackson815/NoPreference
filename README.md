@@ -9,17 +9,20 @@
 #### Zhuohui "Nana" Liang
 
 ### Purpose 
-
 * To identify the most popular flight routes by airline between various destination cities
+* To avoid possible delayed routes for travalers. 
+
+### Affected Parties
+This data visualization will prove useful to frequent flyers (business travelers), last minute bookings, and various other traveling throughout the rest of 2018.
 
 ### Scope: 
-Due to the volume of flights per day in the United States, we will focus on 3 airports (LAX, CHI, JFK) and look at the following details YTD (Year-to-Date):
+Due to the volume of flights per day in the United States, we will focus on 3 airports (LAX, CHI, JFK) and look at the following details for March 2018 (1-month data):
 *	Airport Traffic
 *	Airport Statistics such as On Time, Delays, Cancelled, etc… (Can be broken out by airline as well)
 *	Most Popular Airlines (The airports selected are not Hubs so they should have somewhat of an even balance)
 *	Most popular Routes by Airline and by City
 
-### High-Level Requirements
+### High-Level Achievement
 The visualization must include:
 *	Python Flask powered RESTful API, HTML/CSS, JavaScript, and at least one database (MySQL, Mongo DB, SQLite, etc.)
 *	Should fall into one of the four tracks:
@@ -28,30 +31,26 @@ The visualization must include:
    3. Dashboard with multiple charts updating from same data source
    4. Thick server that performs multiple manipulation on data in database prior to visualization
 *	Include one new JS library
-*	Dataset must be greater than 100 records / data points
+*	Processed more than 600K records of data using Python and SQL
 *	Include some level of UI
-*	Final visualization should include at least 3 views
 
-### Affected Parties
-This data visualization will prove useful to frequent flyers (business travelers), last minute bookings, and various other traveling throughout the rest of 2018.
 
-### High-Level Timeline/Schedule
-This is a rough timeline – Timeline to be approved by team members by EOD June 12
--	June 12, 2018: Approved proposal
--	June 14, 2018:	
--	June 16, 2018
-- June 19, 2018
-- June 21, 2018
 
-### PROJECT DUE
-6.	Sample Data Visualizations
 
+### Sample Data Visualizations
+*original scratch
 ![1](/images/1.jpg)
 
 ![2](/images/2.jpg)
 
+
+*end product
+![3](/images/3.jpg)
+![4](/images/4.jpg)
+![5](/images/5.jpg)
+
 ### Restrictions
-*	One of our sources only allow 20,000 API hits before purchasing their API package.  On average there are roughly 100,000 flights per day in the United States.  *Data may be skewed*
+*	Timing: We only selected a short period of the time (March 2018) to explore the data as the dataset is enomously large and cannot be successfully 
  
 ### References
 * [https://aspm.faa.gov/apm/sys/AnalysisAP.asp](https://aspm.faa.gov/apm/sys/AnalysisAP.asp)
@@ -59,5 +58,16 @@ This is a rough timeline – Timeline to be approved by team members by EOD June
 * [https://developer.flightstats.com/api-docs/flightstatus/v2/airport](https://developer.flightstats.com/api-docs/flightstatus/v2/airport)
 * [https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp?pn=1](https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp?pn=1)
 * [https://status.flightstats.com/](https://status.flightstats.com/)
-More to come…
+
+### Data Manipulation and Observation
+* Daniel to input
+* Daniel to input
+* Daniel to input
+```python
+// please put your python code here
+```
+
+```sql
+// please put your sql query here
+```
 
