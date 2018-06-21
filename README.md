@@ -27,12 +27,10 @@ Due to the volume of flights per day in the United States, we will focus on 3 ai
 ### Summary of Analysis/Finding/Results: 
 *   Southwest Airlines has the highest delayed flights, the total counts is 22257, total percentage is 22.54% on March 2018
 *   Hawaiian Airlines is the most on time airline on March 2018,he total counts is 961, total percentage is 0.97%
-*   LAX airport has teh higest delayed flights, total counts is 4362, total percentage is 4.42%
-*
-*
-*
-*
-*
+*   LAX airport has the higest delayed flights, total counts is 4362, total percentage is 4.42%
+*   Although travelers at JFK and ORD experience over two times as much average weather delay time as compared to LAX              travelers, LAX had the highest average departure delay and average late aircraft delay time among the 3 airports.
+*   Each airport had the highest number of departures and arrivals from the same airline (LAX-Southwest Airlines, JFK-Jet Blue     Airways, ORD-Sky West Airlines)
+*   Among all flight activity between LAX, JFK, and ORD the 3 flight routes with the highest # of flights were (1. ORD to LGA,     2. LAX to SFO, 3. LAX to JFK).
 
 ### High-Level Overview of Technical Skills
 The visualization must include:
