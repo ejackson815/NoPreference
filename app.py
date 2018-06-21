@@ -129,7 +129,7 @@ def a(airport="None"):
     data_ls2 = []
     ap = airport
     for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
-    filter(Airportdata.ORIGIN == ap).all():
+    filter(Airportdata.ORIGIN == airport).all():
         item = {}
         item['total_departure'] = int(i[0])
         item['total_cancelled'] = int(i[1])
@@ -138,6 +138,21 @@ def a(airport="None"):
 
     return jsonify(data_ls2)
 
+@app.route("/B/<airport>")
+@app.route("/B")
+def b(airport="None"):
+    # query for the sample data
+    data_ls3 = []
+    for i in session.query(Airportdata.CARRIER, func.count(Airportdata.CARRIER),func.sum(Airportdata.CANCELLED)).\
+        filter(Airportdata.ORIGIN == "LAX").group_by(Airportdata.CARRIER).all():
+            item = {}
+            item['carrier'] = i[0]
+            item['total_departure'] = int(i[1])
+            item['total_cancelled'] = int(i[2])
+            item['total_arrival'] = int(i[2]) - int(i[1])
+            data_ls3.append(item)
+
+    return jsonify(data_ls3)
 
 if __name__ == '__main__':
     app.run(debug=True)
