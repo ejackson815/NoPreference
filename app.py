@@ -70,7 +70,7 @@ def percentages():
 @app.route("/flight_mapping")
 def mapping():
     """Return the dashboard homepage."""
-    return render_template("flight_mapping.html")
+    return render_template("airports.html")
 
 @app.route("/rawdata")
 def rawdata():

@@ -51,19 +51,7 @@
             <p class="text-white">Let's look into the details on which airlines and/or airports render more delayed flights and vice versa
             </p>
             <div class="row">
-            <div class="col-md-5 text-center ml-1">
-              <p class="text-white">The left charts provide the total counts of delayed flights by airports/airlines.
-              </p>
-            </div>
-            <div class="col-md-5 text-center ml-1">
-              <p class="text-white">The right charts provide the total percentages of delayed flights by airports/airlines.
-              </p>
-            </div>
-            <div class="col-md-5 text-center ml-1">
-              <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('counts')}}"></iframe>
-            </div>
-            <div class="col-md-5 text-center ml-1">
-            <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('percentages')}}"></iframe>
+              <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('mapping')}}"></iframe>
             </div>
             <br>
           </div>
