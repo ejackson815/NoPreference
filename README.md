@@ -1,7 +1,7 @@
 # Project 2 - Come Fly with Me 
 ## Group Name: NoPreference
 -------------------------------
-#### Member Name: 
+### Member Name: 
 #### Daniel Ohriner
 #### Aram Hovasapyan
 #### Elloit Jackson
@@ -22,7 +22,15 @@ Due to the volume of flights per day in the United States, we will focus on 3 ai
 *	Most Popular Airlines (The airports selected are not Hubs so they should have somewhat of an even balance)
 *	Most popular Routes by Airline and by City
 
-### High-Level Achievement
+### Summary of Analysis/Finding/Results: 
+*
+*
+*
+*
+*
+*
+
+### High-Level Overview of Technical Skills
 The visualization must include:
 *	Python Flask powered RESTful API, HTML/CSS, JavaScript, and at least one database (MySQL, Mongo DB, SQLite, etc.)
 *	Should fall into one of the four tracks:
@@ -33,9 +41,6 @@ The visualization must include:
 *	Include one new JS library
 *	Processed more than 600K records of data using Python and SQL
 *	Include some level of UI
-
-
-
 
 ### Sample Data Visualizations
 *original scratch
