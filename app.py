@@ -173,7 +173,7 @@ def c(airport="None"):
 
     return jsonify(data_ls4)
 
-# call total count by outbound destination for each airport
+# call average delays by each carrier based on the given airport
 @app.route("/D/<airport>")
 @app.route("/D")
 def d(airport="None"):
