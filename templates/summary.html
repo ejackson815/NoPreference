@@ -1,382 +1,94 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style type="text/css">
-    body {
-        font-size: 100%;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        width: 960px;
-    }
-
-    #refresh-btn {
-        float: right;
-        font-size: 12px;
-        border-radius: 0;
-    }
-</style>
-
-<body>
-    <button type="button" id="Airline-btn">Airline Delayed Flight Count</button>
-    <button type="button" id="Airport-btn">Airport Delayed Flight Count</button>
-
-    <!--<div id="myDropDown" style="float: right;  padding-right: 5px;"> </div>-->
-    <div id="donut-charts"></div>
-
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script>
-        $(function () {
-            d3.csv("../static/data/airline_delayed_flights.csv", function (data) {
-                var donutData = getData(data, "airline_delayed_flights", "Airline Name",
-                    "Delayed Flight Count",[]);
-
-                var select = populateDropDown(donutData[0].data,"#myDropDown","cat");
-                var donuts = new PieCharts();
-                donuts.create(donutData);
-            });
-
-            $('#Airline-btn').on('click', function refresh() {
-                d3.select("#donut-charts").selectAll("*").remove();
-                d3.select("#myDropDown").selectAll("*").remove();
-                d3.csv("../static/data/airline_delayed_flights.csv", function (data) {
-                var donutData = getData(data, "airline_delayed_flights", "Airline Name",
-                    "Delayed Flight Count",[]);
-
-                var select = populateDropDown(donutData[0].data,"#myDropDown","cat");
-                var donuts = new PieCharts();
-                donuts.create(donutData);
-            });
-            });
-
-            $('#Airport-btn').on('click', function refresh() {
-                d3.select("#donut-charts").selectAll("*").remove();
-                d3.select("#myDropDown").selectAll("*").remove();
-                d3.csv("../static/data/airport_delayed_flights.csv", function (data) {
-                    var donutData = getData(data, "airport_delayed_flights", "Airport",
-                        "# of delayed flights",[]);
-
-                var select = populateDropDown(donutData[0].data,"#myDropDown","cat");
-                var donuts = new PieCharts();
-                donuts.create(donutData);
-                });
-            });
-        });
-
-        /*
-         * Draw Pie Chart.
-         */
-        function PieCharts() {
-
-            var charts = d3.select('#donut-charts');
-
-            var chart_m,
-                chart_r,
-                color = d3.scale.category20();
-
-            var getCatNames = function (dataset) {
-                var catNames = new Array();
-
-                for (var i = 0; i < dataset[0].data.length; i++) {
-                    catNames.push(dataset[0].data[i].cat);
-                }
-
-                return catNames;
-            }
-
-            var createLegend = function (catNames) {
-                var legends = charts.select('.legend')
-                    .selectAll('g')
-                    .data(catNames)
-                    .enter().append('g')
-                    .attr('transform', function (d, i) {
-                        return 'translate(' + (i * 150 + 50) + ', 10)';
-                    });
-
-                legends.append('circle')
-                    .attr('class', 'legend-icon')
-                    .attr('r', 6)
-                    .style('fill', function (d, i) {
-                        return color(i);
-                    });
-
-                legends.append('text')
-                    .attr('dx', '1em')
-                    .attr('dy', '.3em')
-                    .text(function (d) {
-                        return d;
-                    });
-            }
-
-            var createCenter = function (pie) {
-
-                var eventObj = {
-                    'mouseover': function (d, i) {
-                        d3.select(this)
-                            .transition()
-                            .attr("r", chart_r * 0.65);
-                    },
-
-                    'mouseout': function (d, i) {
-                        d3.select(this)
-                            .transition()
-                            .duration(500)
-                            .ease('bounce')
-                            .attr("r", chart_r * 0.6);
-                    },
-
-                    'click': function (d, i) {
-                        var paths = charts.selectAll('.clicked');
-                        pathAnim(paths, 0);
-                        paths.classed('clicked', false);
-                        resetAllCenterText();
-                    }
-                }
-
-                var donuts = d3.selectAll('.donut');
-
-                // The circle displaying total data.
-                donuts.append("svg:circle")
-                    .attr("r", chart_r * 0.6)
-                    .style("fill", "#E7E7E7")
-                    .on(eventObj);
-
-                donuts.append('text')
-                    .attr('class', 'center-txt type')
-                    .attr('y', chart_r * -0.16)
-                    .attr('text-anchor', 'middle')
-                    .style('font-weight', 'bold')
-                    .text(function (d, i) {
-                        return d.type;
-                    });
-                donuts.append('text')
-                    .attr('class', 'center-txt value')
-                    .attr('text-anchor', 'middle');
-                donuts.append('text')
-                    .attr('class', 'center-txt percentage')
-                    .attr('y', chart_r * 0.16)
-                    .attr('text-anchor', 'middle')
-                    .style('fill', '#A2A2A2');
-            }
-
-            var setCenterText = function (thisDonut) {
-                var sum = d3.sum(thisDonut.selectAll('.clicked').data(), function (d) {
-                    return d.data.val;
-                });
-
-                thisDonut.select('.type')
-                    .text(function (d) {
-                        return d.type;
-                    });
-                thisDonut.select('.value')
-                    .text(function (d) {
-                        return (sum) ? sum.toFixed(1) + d.unit :
-                            d.total.toFixed(1) + d.unit;
-                    });
-                thisDonut.select('.percentage')
-                    .text(function (d) {
-                        return (sum) ? (sum / d.total * 100).toFixed(2) + '%' :
-                            '';
-                    });
-            }
-
-            var resetAllCenterText = function () {
-                charts.selectAll('.value')
-                    .text(function (d) {
-                        return d.total.toFixed(1) + d.unit;
-                    });
-                charts.selectAll('.percentage')
-                    .text('');
-            }
-
-            var pathAnim = function (path, dir) {
-                switch (dir) {
-                    case 0:
-                        path.transition()
-                            .duration(500)
-                            .ease('bounce')
-                            .attr('d', d3.svg.arc()
-                                .innerRadius(chart_r * 0.7)
-                                .outerRadius(chart_r)
-                            );
-                        break;
-
-                    case 1:
-                        path.transition()
-                            .attr('d', d3.svg.arc()
-                                .innerRadius(chart_r * 0.7)
-                                .outerRadius(chart_r * 1.08)
-                            );
-                        break;
-                }
-            }
-
-            var updateDonut = function () {
-
-                var eventObj = {
-
-                    'mouseover': function (d, i, j) {
-                        pathAnim(d3.select(this), 1);
-
-                        var thisDonut = charts.select('.type' + j);
-
-                        thisDonut.select('.type').text(function (donut_d) {
-                            return d.data.cat;
-                        });
-                        thisDonut.select('.value').text(function (donut_d) {
-                            return d.data.val.toFixed(1) + donut_d.unit;
-                        });
-                        thisDonut.select('.percentage').text(function (donut_d) {
-                            return (d.data.val / donut_d.total * 100).toFixed(2) + '%';
-                        });
-                    },
-
-                    'mouseout': function (d, i, j) {
-                        var thisPath = d3.select(this);
-                        if (!thisPath.classed('clicked')) {
-                            pathAnim(thisPath, 0);
-                        }
-                        var thisDonut = charts.select('.type' + j);
-                        setCenterText(thisDonut);
-                    },
-
-                    'click': function (d, i, j) {
-                        var thisDonut = charts.select('.type' + j);
-
-                        if (0 === thisDonut.selectAll('.clicked')[0].length) {
-                            thisDonut.select('circle').on('click')();
-                        }
-
-                        var thisPath = d3.select(this);
-                        var clicked = thisPath.classed('clicked');
-                        pathAnim(thisPath, ~~(!clicked));
-                        thisPath.classed('clicked', !clicked);
-
-                        setCenterText(thisDonut);
-                    }
-                };
-
-                var pie = d3.layout.pie()
-                    .sort(null)
-                    .value(function (d) {
-                        return d.val;
-                    });
-
-                var arc = d3.svg.arc()
-                    .innerRadius(chart_r * 0.7)
-                    .outerRadius(function () {
-                        return (d3.select(this).classed('clicked')) ? chart_r * 1.08 :
-                            chart_r;
-                    });
-
-                // Start joining data with paths
-                var paths = charts.selectAll('.donut')
-                    .selectAll('path')
-                    .data(function (d, i) {
-                        return pie(d.data);
-                    });
-
-                paths
-                    .transition()
-                    .duration(1000)
-                    .attr('d', arc);
-
-                paths.enter()
-                    .append('svg:path')
-                    .attr('d', arc)
-                    .style('fill', function (d, i) {
-                        return color(i);
-                    })
-                    .style('stroke', '#FFFFFF')
-                    .on(eventObj)
-
-                paths.exit().remove();
-
-                resetAllCenterText();
-            }
-
-            this.create = function (dataset) {
-                var $charts = $('#donut-charts');
-                chart_m = $charts.innerWidth() / dataset.length / 4 * 0.14;
-                chart_r = $charts.innerWidth() / dataset.length / 4 * 0.85;
-
-                charts.append('svg')
-                    .attr('class', 'legend')
-                    .attr('width', '100%')
-                    .attr('height', 50)
-                    .attr('transform', 'translate(0, -100)');
-
-                var donut = charts.selectAll('.donut')
-                    .data(dataset)
-                    .enter().append('svg:svg')
-                    .attr('width', (chart_r + chart_m) * 2)
-                    .attr('height', (chart_r + chart_m) * 2)
-                    .append('svg:g')
-                    .attr('class', function (d, i) {
-                        return 'donut type' + i;
-                    })
-                    .attr('transform', 'translate(' + (chart_r + chart_m) + ',' + (chart_r + chart_m) + ')');
-
-                createLegend(getCatNames(dataset));
-                createCenter();
-
-                updateDonut();
-            }
-
-            this.update = function (dataset) {
-                // Assume no new categ of data enter
-                var donut = charts.selectAll(".donut")
-                    .data(dataset);
-
-                updateDonut();
-            }
-        }
-
-
-        /*
-         * Returns a data object.
-         */
-        function getData(data, type, catLabel, valLabel,catList) {
-            var total = 0;
-            var dataset = new Array();
-            var dataForPie = new Array();
-            data.forEach(function (d) {
-                if(catList.indexOf(d[catLabel]) > -1)
-                {}
-                d[valLabel] = +d[valLabel];
-                total += d[valLabel];
-                dataForPie.push({
-                    "cat": d[catLabel],
-                    "val": +d[valLabel]
-                });
-            });
-
-            dataset.push({
-                "type": type,
-                "unit": "",
-                "data": dataForPie,
-                "total": total
-            });
-            return dataset;
-        }
-
-        
-        /*
-         * Fill DropDown.
-         */
-        function populateDropDown(data,dropDownName,KeyValue){
-             var select = d3.select(dropDownName)
-             .append("select")
-             
-             select.append("option")
-                 .attr("value", function () { return 'Select category'; })
-                 .text(function () { return 'Select category'; });
-            
-            for(var d in data)
-                {
-                    select.append("option")
-                 .attr("value", function () { return data[d][KeyValue]; })
-                 .text(function () { return data[d][KeyValue]; });
-                }
-            return select;
-        }
-    </script>
-</body>
+<html lang="en">
+  <head>
+    <title>Landing Page</title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+  </head>
+  <body style="background:linear-gradient(blue,#b2e6ff)">
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <!-- Create Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: blue,#b2e6ff;">
+      <div class="container-fluid">
+        <a class="navbar-brand bg-primary text-white m-2 pl-2 pr-2" href="{{ url_for('home')}}">Come Fly with Me</a>
+        <button class="navbar-toggler bg-primary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Create collapse bar -->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="nav justify-content-end nav-pills nav-fills">
+          <!-- Create dropdown menu -->
+              <li class="nav-item justify-content-end">
+                <a class="ml-5 mr-2 nav-link inactive text-white" href="{{ url_for('summary')}}">Delayed Flights by Airline/Airport</a>
+              </li>
+              <li class="nav-item">
+                <a class="ml-2 nav-link active text-white" href="{{ url_for('detail')}}">Flight Arrival/Departure Details</a>
+              </li>
+           </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Main Content Area -->
+    <div class="container-fluid">
+      <div class="row mt-5 ml-5 mr-5 mb-5">
+        <div class="col-lg-12 mb-6" style="background-color: blue,#b2e6ff;">
+          <div class="thumbnail">
+            <h1 class="text-white pt-4">Delayed Flights by Airline/Airport</h1>
+            <hr>
+            <!--summary needs to be updated -->
+            <p class="text-white">Let's look into the details on which airlines and/or airports render more delayed flights and vice versa
+            </p>
+            <div class="row">
+            <div class="col-md-5 text-center ml-1">
+              <p class="text-white">The left charts provide the total counts of delayed flights by airports/airlines.
+              </p>
+            </div>
+            <div class="col-md-5 text-center ml-1">
+              <p class="text-white">The right charts provide the total percentages of delayed flights by airports/airlines.
+              </p>
+            </div>
+            <div class="col-md-5 text-center ml-1">
+              <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('counts')}}"></iframe>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+            <div class="col-md-5 text-center ml-1">
+              <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('percentages')}}"></iframe>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <br>
+  <!--Footer-->
+  <footer class="footer">
+    <!--/.Footer Links--> <!--Copyright-->
+    <div class="container-fluid p-3 mb-2 text-white text-center" style ="background:#bee3f4">
+        No Preference @ Copyright
+    </div>
+      <!--/.Copyright-->
+  </footer>
+  <!--/.Footer-->
+</html>

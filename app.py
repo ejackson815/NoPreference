@@ -23,16 +23,14 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, inspect, func
 from flask_sqlalchemy import SQLAlchemy
 
- # Create engine using the `hawaii.sqlite` database file
-engine = create_engine("sqlite:///db/belly_button_biodiversity.sqlite", echo=False)
+# Create an engine to a SQLite database file
+engine = create_engine("sqlite:///static/data/data.sqlite", echo=False)
 # Declare a Base using `automap_base()`
 Base = automap_base() 
  # Use the Base class to reflect the database tables
 Base.prepare(engine, reflect=True)
- # Assign the measuremens and stations classes to variables called `Measaurement` and `Station`
-Otu = Base.classes.otu
-Samples = Base.classes.samples
-Metadata = Base.classes.samples_metadata
+ # Assign the measuremens and stations classes to variables 
+Airportdata = Base.classes.airportdata
 session = Session(engine)
 
 #################################################
@@ -44,145 +42,178 @@ def home():
     """Return the dashboard homepage."""
     return render_template("index.html")
 
-@app.route("/names")
-def names():
-    """List of sample names.
-    Returns a list of sample names in the format
-    [
-        "BB_940",
-        "BB_941",
-        "BB_943",
-        "BB_944",
-        "BB_945",
-        "BB_946",
-        "BB_947",
-        ...
-    ]
-    """
-    samplename = []
-    # query for all the sample data
-    ins = inspect(engine)
-    columns = ins.get_columns('samples')
-    for c in columns:
-        samplename.append(c['name'])
-    samplename.remove('otu_id')
-    return jsonify(samplename)
+@app.route("/plane")
+def plane():
+    """Return the dashboard homepage."""
+    return render_template("plane.html")
+
+@app.route("/detail")
+def detail():
+    """Return the dashboard homepage."""
+    return render_template("detail.html")
+
+@app.route("/summary")
+def summary():
+    """Return the dashboard homepage."""
+    return render_template("summary.html")
+
+@app.route("/summary_counts")
+def counts():
+    """Return the dashboard homepage."""
+    return render_template("summary_counts.html")
+
+@app.route("/summary_percentages")
+def percentages():
+    """Return the dashboard homepage."""
+    return render_template("summary_percentages.html")
+
+@app.route("/flight_mapping")
+def mapping():
+    """Return the dashboard homepage."""
+    return render_template("airports.html")
+
+@app.route("/rawdata")
+def rawdata():
+    # query for the sample data
+    data_ls = []
+    for i in session.query(Airportdata.id, Airportdata.CARRIER, Airportdata.ORIGIN, Airportdata.DEST, Airportdata.CANCELLED).all(): 
+        item = {}
+
+        item['ID'] = i[0]
+        item['CARRIER'] = i[1]
+        item['ORIGIN'] = i[2]
+        item['DEST'] = i[3]
+        item['CANCELLED'] = i[4]
+        data_ls.append(item)
+
+    return jsonify(data_ls)
 
 
+@app.route("/total")
+def total():
+    # query for the sample data
+    data_ls1 = []
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER), func.sum(Airportdata.CANCELLED)).all(): 
+        item = {}
 
-@app.route("/otu")
-def otu():
-    """List of OTU descriptions.
-    Returns a list of OTU descriptions in the following format
-    [
-        "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
-        "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
-        "Bacteria",
-        "Bacteria",
-        "Bacteria",
-        ...
-    ]
-    """
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls1.append(item)
 
-    # query for the otu data
-    otuList = session.query(Otu.lowest_taxonomic_unit_found).all()
-    otuDesc = [l[0] for l in otuList]
-
-    return jsonify(otuDesc)
+    return jsonify(data_ls1)
 
 
-@app.route("/metadata/<sample>")
-@app.route("/metadata")
-def metadata(sample="None"):
-    """MetaData for a given sample.
-    Args: Sample in the format: `BB_940`
-    Returns a json dictionary of sample metadata in the format
-    {
-        AGE: 24,
-        BBTYPE: "I",
-        ETHNICITY: "Caucasian",
-        GENDER: "F",
-        LOCATION: "Beaufort/NC",
-        SAMPLEID: 940
-    }
-    """
-    # query for the sample metadata
-    metadata_ls = []
-    for i in session.query(Metadata.SAMPLEID,Metadata.AGE, Metadata.BBTYPE, Metadata.ETHNICITY, Metadata.GENDER, Metadata.LOCATION).all():
-        sample_item = {}
+@app.route("/LAX")
+def lax():
+    # query for the sample data
+    data_ls2 = []
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+    filter(Airportdata.ORIGIN == "LAX").all():
+        item = {}
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls2.append(item)
 
-        sample_item['SAMPLEID'] = i[0]
-        sample_item['AGE'] = i[1]
-        sample_item['BBTYPE'] = i[2]
-        sample_item['ETHNICITY'] = i[3]
-        sample_item['GENDER'] = i[4]
-        sample_item['LOCATION'] = i[5]
+    return jsonify(data_ls2)
 
-        metadata_ls.append(sample_item)
+@app.route("/JFK")
+def jfk():
+    # query for the sample data
+    data_ls2 = []
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+    filter(Airportdata.ORIGIN == "JFK").all():
+        item = {}
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls2.append(item)
 
-    for selectitem in metadata_ls:
-    # add"BB_" to the  sampleid 
-        if sample == "BB_" + str(selectitem['SAMPLEID']):
-            return jsonify(selectitem)
-    return jsonify(metadata)
-    
-@app.route("/wfreq/<sample>")
-@app.route("/wfreq")
-def wfreq(sample="None"):
-    """Weekly Washing Frequency as a number.
+    return jsonify(data_ls2)
 
-    Args: Sample in the format: `BB_940`
 
-    Returns an integer value for the weekly washing frequency `WFREQ`
-    """
-    # query for the wfreq data
-    wfreqls = []
-    for i in session.query(Metadata.WFREQ, Metadata.SAMPLEID).all():
-        wfreqls.append(i)
-        if sample == "BB_" + str(i[1]):
-            return jsonify(i[0])
+@app.route("/ORD")
+def ord():
+    # query for the sample data
+    data_ls2 = []
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+    filter(Airportdata.ORIGIN == "ORD").all():
+        item = {}
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls2.append(item)
 
-    wfreq = [f"{l[0]}, {l[1]}" for l in wfreqls]
+    return jsonify(data_ls2)
 
-    return jsonify(wfreq)
+# call total departure, cancel anad arrival by departure airport
+@app.route("/A/<airport>")
+@app.route("/A")
+def a(airport="None"):
+    # query for the sample data
+    data_ls2 = []
+    ap = airport
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+    filter(Airportdata.ORIGIN == airport).all():
+        item = {}
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls2.append(item)
 
-@app.route("/samples/<sample>")
-@app.route("/samples")
-def samples(sample="None"):
-    """OTU IDs and Sample Values for a given sample.
-    Sort your Pandas DataFrame (OTU ID and Sample Value)
-    in Descending Order by Sample Value
-    Return a list of dictionaries containing sorted lists  for `otu_ids`
-    and `sample_values`
-    [
-        {
-            otu_ids: [
-                1166,
-                2858,
-                481,
-                ...
-            ],
-            sample_values: [
-                163,
-                126,
-                113,
-                ...
-            ]
-        }
-    ]
-    """
-    # query OTU ID and Sample Values
-    df = pd.read_sql('SELECT * FROM samples', engine).set_index('otu_id')
+    return jsonify(data_ls2)
 
-    otu_ids = df['BB_{}'.format(sample[3:])].sort_values(ascending=False).index.tolist()
-    sample_values = df['BB_{}'.format(sample[3:])].sort_values(ascending=False).tolist()
+# call total departure, cancel anad arrival by departure airport by carrier
+@app.route("/B/<airport>")
+@app.route("/B")
+def b(airport="None"):
+    # query for the sample data
+    data_ls3 = []
+    for i in session.query(Airportdata.CARRIER, func.count(Airportdata.CARRIER),func.sum(Airportdata.CANCELLED)).\
+        filter(Airportdata.ORIGIN == "LAX").group_by(Airportdata.CARRIER).all():
+            item = {}
+            item['carrier'] = i[0]
+            item['total_departure'] = int(i[1])
+            item['total_cancelled'] = int(i[2])
+            item['total_arrival'] = int(i[2]) - int(i[1])
+            data_ls3.append(item)
 
-    otu_ids = [int(i) for i in otu_ids]
-    sample_values = [int(i) for i in sample_values]
+    return jsonify(data_ls3)
 
-    result = {'otu_ids': otu_ids, 'sample_values': sample_values}
+# call total count by outbound destination for each airport
+@app.route("/C/<airport>")
+@app.route("/C")
+def c(airport="None"):
+    # query for the sample data
+    data_ls4 = []
+    for i in session.query(Airportdata.ORIGIN, Airportdata.DEST, func.count(Airportdata.DEST)).\
+        filter(Airportdata.ORIGIN == "LAX").group_by(Airportdata.DEST).\
+        order_by(func.count(Airportdata.DEST).desc()).all():
+            item = {}
+            item['aorigin'] = i[0]
+            item['destination'] = i[1]
+            item['tcount'] = int(i[2])
+            data_ls4.append(item)
 
-    return jsonify(result)
+    return jsonify(data_ls4)
+
+# call average delays by each carrier based on the given airport
+@app.route("/D/<airport>")
+@app.route("/D")
+def d(airport="None"):
+    # query for the sample data
+    data_ls5 = []
+    for i in session.query(Airportdata.CARRIER, func.avg(Airportdata.DEP_DELAY_NEW), func.avg(Airportdata.WEATHER_DELAY),func.avg(Airportdata.ARR_DELAY_NEW)).\
+        filter(Airportdata.ORIGIN == "LAX").group_by(Airportdata.CARRIER).all():
+            item = {}
+            item['acarrier'] = i[0]
+            item['depart_delay'] = int(i[1])
+            item['weather_delay'] = int(i[2])
+            item['arrival_delay'] = int(i[3])
+            data_ls5.append(item)
+
+    return jsonify(data_ls5)
 
 
 if __name__ == '__main__':

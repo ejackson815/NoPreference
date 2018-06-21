@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Detail</title>
+    <title>Landing Page</title>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/style.css">
   </head>
-  <body style="background-color:lightgrey">
+  <body style="background:linear-gradient(blue,#b2e6ff)">
     <!-- jQuery library -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <!-- Popper JS -->
@@ -20,26 +20,50 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <!-- Create Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: blue,#b2e6ff;">
       <div class="container-fluid">
-        <a class="navbar-brand bg-primary text-white m-2 pl-2 pr-2" href="index.html">Detail</a>
-
+        <a class="navbar-brand bg-primary text-white m-2 pl-2 pr-2" href="{{ url_for('home')}}">Come Fly with Me</a>
+        <button class="navbar-toggler bg-primary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Create collapse bar -->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="nav justify-content-end nav-pills nav-fills">
           <!-- Create dropdown menu -->
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Airport</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="summary.html" target="_blank">Summary</a>
-                <a class="dropdown-item" href="detail.html" target="_blank">Detail</a>
-              </div>
+              <li class="nav-item justify-content-end">
+                <a class="ml-5 mr-2 nav-link active text-white" href="{{ url_for('summary')}}">Delayed Flights by Airline/Airport</a>
+              </li>
+              <li class="nav-item">
+                <a class="ml-2 nav-link inactive text-white" href="{{ url_for('detail')}}">Flight Arrival/Departure Details</a>
+              </li>
+           </ul>
         </div>
+      </div>
     </nav>
-
+    <!-- Main Content Area -->
+    <div class="container-fluid">
+      <div class="row mt-5 ml-5 mr-5 mb-5">
+        <div class="col-lg-12 mb-6" style="background-color: blue,#b2e6ff;">
+          <div class="thumbnail">
+            <h1 class="text-white pt-4">Flight Arrival/Departure Details</h1>
+            <hr>
+            <!--summary needs to be updated -->
+            <p class="text-white">Let's look into the details on which airlines and/or airports render more delayed flights and vice versa
+            </p>
+            <div class="row">
+              <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('mapping')}}"></iframe>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
   <br>
   <!--Footer-->
   <footer class="footer">
     <!--/.Footer Links--> <!--Copyright-->
-    <div class="container-fluid p-3 mb-2 bg-secondary text-white text-center">
+    <div class="container-fluid p-3 mb-2 text-white text-center" style ="background:#bee3f4">
         No Preference @ Copyright
     </div>
       <!--/.Copyright-->
