@@ -3,25 +3,12 @@ body {
     font-style: normal;
     font-size: 100%;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
     
 }
 p {
     font-size: 0.875em;
     font-style: normal;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-}
-
-p.italic {
-    font-size: 0.875em;
-    font-style: italic;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-}
-
-p.oblique {
-    font-size: 0.875em;
-    font-style: oblique;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
 }

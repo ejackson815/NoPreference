@@ -31,10 +31,10 @@
             <ul class="nav justify-content-end nav-pills nav-fills">
           <!-- Create dropdown menu -->
               <li class="nav-item justify-content-end">
-                <a class="ml-5 mr-2 nav-link active text-white" href="{{ url_for('summary')}}">Airport Stats Summary</a>
+                <a class="ml-5 mr-2 nav-link active text-white" href="{{ url_for('summary')}}">Delayed Flights by Airline/Airport</a>
               </li>
               <li class="nav-item">
-                <a class="ml-2 nav-link active text-white" href="{{ url_for('detail')}}">Airport Stats Details</a>
+                <a class="ml-2 nav-link active text-white" href="{{ url_for('detail')}}">Delayed Flights by Airline/Airport</a>
               </li>
            </ul>
         </div>
@@ -45,13 +45,26 @@
       <div class="row mt-5 ml-5 mr-5 mb-5">
         <div class="col-lg-12 mb-6" style="background-color: blue,#b2e6ff;">
           <div class="thumbnail">
-            <h1 class="text-white pt-4">Summary</h1>
+            <h1 class="text-white pt-4">Delayed Flights by Airline/Airport</h1>
             <hr>
             <!--summary needs to be updated -->
-            <p>The purpose of this project was to identify the most popular flight routes by airline between various destination cities.
+            <p class="text-white">Let's look into the details on which airlines and/or airports render more delayed flights and vice versa
             </p>
-            <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('counts')}}"></iframe>
+            <div class="row">
+            <div class="col-md-5 text-center ml-1">
+              <p class="text-white">The left charts provide the total counts of delayed flights by airports/airlines.
+              </p>
+            </div>
+            <div class="col-md-5 text-center ml-1">
+              <p class="text-white">The right charts provide the total percentages of delayed flights by airports/airlines.
+              </p>
+            </div>
+            <div class="col-md-5 text-center ml-1">
+              <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('counts')}}"></iframe>
+            </div>
+            <div class="col-md-5 text-center ml-1">
             <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('percentages')}}"></iframe>
+            </div>
             <br>
           </div>
         </div>

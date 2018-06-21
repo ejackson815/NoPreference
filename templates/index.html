@@ -31,10 +31,10 @@
             <ul class="nav justify-content-end nav-pills nav-fills">
           <!-- Create dropdown menu -->
               <li class="nav-item justify-content-end">
-                <a class="ml-5 mr-2 nav-link active text-white" href="{{ url_for('summary')}}">Airport Stats Summary</a>
+                <a class="ml-5 mr-2 nav-link active text-white" href="{{ url_for('summary')}}">Delayed Flights by Airline/Airport</a>
               </li>
               <li class="nav-item">
-                <a class="ml-2 nav-link active text-white" href="{{ url_for('detail')}}">Airport Stats Details</a>
+                <a class="ml-2 nav-link active text-white" href="{{ url_for('detail')}}">Flight Arrival/Departure Details</a>
               </li>
            </ul>
         </div>
@@ -45,14 +45,14 @@
       <div class="row mt-5 ml-5 mr-5 mb-5">
         <div class="col-lg-12 mb-6" style="background-color: blue,#b2e6ff;">
           <div class="thumbnail">
-            <h1 class="text-white pt-4">Summary</h1>
+            <h1 class="text-white pt-4">Welcome~~~~</h1>
             <hr>
             <!--summary needs to be updated -->
-            <p>The purpose of this project was to identify the most popular flight routes by airline between various destination cities.
+            <p class="text-white">The purpose of this project was to identify the most popular flight routes by airline between various destination cities.
             </p>
-            <p> We reviewed and analysed the flight data from Federal Aviation Administration website.
+            <p class="text-white"> We reviewed and analysed the flight data from Federal Aviation Administration website.
             </p>
-            <p> For more analyzed results, please click the "Airport Stats Summary" and "Airport Stats Details".
+            <p class="text-white"> For more analyzed results, please click the "Airport Stats Summary" and "Airport Stats Details".
             </p>
             <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('plane')}}"></iframe>
             <br>
