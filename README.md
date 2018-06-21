@@ -25,9 +25,9 @@ Due to the volume of flights per day in the United States, we will focus on 3 ai
 *	Most popular Routes by Airline and by City
 
 ### Summary of Analysis/Finding/Results: 
-*Southwest Airlines has the highest delayed flights, the total counts is 22257, total percentage is 22.54% on March 2018
-*Hawaiian Airlines is the most on time airline on March 2018,he total counts is 961, total percentage is 0.97%
-*LAX airport has teh higest delayed flights, total counts is 4362, total percentage is 4.42%.
+*   Southwest Airlines has the highest delayed flights, the total counts is 22257, total percentage is 22.54% on March 2018
+*   Hawaiian Airlines is the most on time airline on March 2018,he total counts is 961, total percentage is 0.97%
+*   LAX airport has teh higest delayed flights, total counts is 4362, total percentage is 4.42%.
 *
 *
 *
