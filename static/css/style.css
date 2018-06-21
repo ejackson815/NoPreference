@@ -1,9 +1,30 @@
-body {background-color: teal;}
+body {
+    background-color: blue;
+    font-style: normal;
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+p {
+    font-size: 0.875em;
+    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
+p.italic {
+    font-size: 0.875em;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
+p.oblique {
+    font-size: 0.875em;
+    font-style: oblique;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 #nav-title {
-    background-color: teal;
+    background-color: blue;
     color: white;
     margin-left: 40px;
     font-size: 40px;
@@ -11,7 +32,7 @@ body {background-color: teal;}
 }
 
 .navbar-toggle {
-    background-color: teal; 
+    background-color: blue; 
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -56,7 +77,7 @@ body {background-color: teal;}
 h1 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: white;
-    font-size: 32px;
+    font-size: 2.5em;
     font-weight: 300;
     text-align: center
   }
@@ -64,7 +85,7 @@ h1 {
 h2 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: white;
-    font-size: 26px;
+    font-size: 1.875em;
     font-weight: 300;
     text-align: center
 }
