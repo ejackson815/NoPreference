@@ -64,6 +64,63 @@ def rawdata():
     return jsonify(data_ls)
 
 
+@app.route("/total")
+def total():
+    # query for the sample data
+    data_ls1 = []
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER), func.sum(Airportdata.CANCELLED)).all(): 
+        item = {}
+
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls1.append(item)
+
+    return jsonify(data_ls1)
+
+
+@app.route("/LAX")
+def lax():
+    # query for the sample data
+    data_ls2 = []
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+    filter(Airportdata.ORIGIN == "LAX").all():
+        item = {}
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls2.append(item)
+
+    return jsonify(data_ls2)
+
+@app.route("/JFK")
+def jfk():
+    # query for the sample data
+    data_ls2 = []
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+    filter(Airportdata.ORIGIN == "JFK").all():
+        item = {}
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls2.append(item)
+
+    return jsonify(data_ls2)
+
+
+@app.route("/ORD")
+def ord():
+    # query for the sample data
+    data_ls2 = []
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+    filter(Airportdata.ORIGIN == "ORD").all():
+        item = {}
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls2.append(item)
+
+    return jsonify(data_ls2)
 
 
 
