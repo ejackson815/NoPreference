@@ -122,6 +122,21 @@ def ord():
 
     return jsonify(data_ls2)
 
+@app.route("/A/<airport>")
+@app.route("/A")
+def a(airport="None"):
+    # query for the sample data
+    data_ls2 = []
+    ap = airport
+    for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+    filter(Airportdata.ORIGIN == ap).all():
+        item = {}
+        item['total_departure'] = int(i[0])
+        item['total_cancelled'] = int(i[1])
+        item['total_arrival'] = int(i[0]) - int(i[1])
+        data_ls2.append(item)
+
+    return jsonify(data_ls2)
 
 
 if __name__ == '__main__':
