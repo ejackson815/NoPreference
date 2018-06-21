@@ -46,7 +46,27 @@ def home():
 def plane():
     """Return the dashboard homepage."""
     return render_template("plane.html")
-    
+
+@app.route("/detail")
+def plane():
+    """Return the dashboard homepage."""
+    return render_template("detail.html")
+
+@app.route("/summary_counts")
+def plane():
+    """Return the dashboard homepage."""
+    return render_template("summary_counts.html")
+
+@app.route("/summary_percentages")
+def plane():
+    """Return the dashboard homepage."""
+    return render_template("summary_percentages.html")
+
+@app.route("/flight_mapping")
+def plane():
+    """Return the dashboard homepage."""
+    return render_template("flight_mapping.html")
+
 @app.route("/rawdata")
 def rawdata():
     # query for the sample data
