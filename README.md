@@ -1,5 +1,7 @@
 # Project 2 - Come Fly with Me 
 ## Group Name: NoPreference
+## Heroku Deployment
+* the interactive webpages have been deployed to: [https://comeflywithmeow.herokuapp.com/](https://comeflywithmeow.herokuapp.com/).
 -------------------------------
 ### Member Name: 
 #### Daniel Ohriner
