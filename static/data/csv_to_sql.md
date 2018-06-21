@@ -16,38 +16,37 @@ data = pd.read_csv ("static/data/arrival_depart_data.csv")
 
 ```python
 # Use `dropna` to drop any rows where there is missing data / reset data
-data = data.dropna(axis=0).reset_index(drop=True)
 data.count()
 ```
 
 
 
 
-    id                       98695
-    YEAR                     98695
-    FL_DATE                  98695
-    UNIQUE_CARRIER           98695
-    AIRLINE_ID               98695
-    CARRIER                  98695
-    ORIGIN_AIRPORT_ID        98695
-    ORIGIN_CITY_MARKET_ID    98695
-    ORIGIN                   98695
-    ORIGIN_CITY_NAME         98695
-    DEST_AIRPORT_ID          98695
-    DEST_CITY_MARKET_ID      98695
-    DEST                     98695
-    DEST_CITY_NAME           98695
-    DEP_DELAY_NEW            98695
-    TAXI_OUT                 98695
-    WHEELS_OFF               98695
-    WHEELS_ON                98695
-    TAXI_IN                  98695
-    ARR_DELAY_NEW            98695
-    CANCELLED                98695
-    DIVERTED                 98695
-    FLIGHTS                  98695
-    CARRIER_DELAY            98695
-    WEATHER_DELAY            98695
+    id                       611988
+    YEAR                     611988
+    FL_DATE                  611988
+    UNIQUE_CARRIER           611988
+    AIRLINE_ID               611988
+    CARRIER                  611988
+    ORIGIN_AIRPORT_ID        611988
+    ORIGIN_CITY_MARKET_ID    611988
+    ORIGIN                   611988
+    ORIGIN_CITY_NAME         611988
+    DEST_AIRPORT_ID          611988
+    DEST_CITY_MARKET_ID      611988
+    DEST                     611988
+    DEST_CITY_NAME           611988
+    DEP_DELAY_NEW            594331
+    TAXI_OUT                 594776
+    WHEELS_OFF               594777
+    WHEELS_ON                594446
+    TAXI_IN                  594446
+    ARR_DELAY_NEW            593329
+    CANCELLED                611988
+    DIVERTED                 611988
+    FLIGHTS                  611988
+    CARRIER_DELAY             98744
+    WEATHER_DELAY             98744
     dtype: int64
 
 
@@ -57,19 +56,6 @@ data.count()
 # Remove hawaii.sqlite if exists
 os.remove("static/data/data.sqlite")
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    FileNotFoundError                         Traceback (most recent call last)
-
-    <ipython-input-8-4683cbe28d3c> in <module>()
-          1 # Remove hawaii.sqlite if exists
-    ----> 2 os.remove("static/data/data.sqlite")
-    
-
-    FileNotFoundError: [WinError 2] The system cannot find the file specified: 'static/data/data.sqlite'
-
 
 
 ```python
@@ -82,7 +68,7 @@ from sqlalchemy import Column, Integer, String, Numeric, Text, Float, Date
 
 
 ```python
-# Create an engine to a SQLite database file called `hawaii.sqlite`
+# Create an engine to a SQLite database file
 engine = create_engine("sqlite:///static/data/data.sqlite", echo=False)
 ```
 
@@ -150,7 +136,7 @@ Mdata = data.to_dict(orient='records')
 print(Mdata[:1])
 ```
 
-    [{'id': 4, 'YEAR': 2018, 'FL_DATE': '3/21/2018', 'UNIQUE_CARRIER': 'OH', 'AIRLINE_ID': 20397, 'CARRIER': 'OH', 'ORIGIN_AIRPORT_ID': 11057, 'ORIGIN_CITY_MARKET_ID': 31057, 'ORIGIN': 'CLT', 'ORIGIN_CITY_NAME': 'Charlotte, NC', 'DEST_AIRPORT_ID': 10434, 'DEST_CITY_MARKET_ID': 30434, 'DEST': 'AVP', 'DEST_CITY_NAME': 'Scranton/Wilkes-Barre, PA', 'DEP_DELAY_NEW': 39.0, 'TAXI_OUT': 12.0, 'WHEELS_OFF': 1721.0, 'WHEELS_ON': 1839.0, 'TAXI_IN': 2.0, 'ARR_DELAY_NEW': 23.0, 'CANCELLED': 0, 'DIVERTED': 0, 'FLIGHTS': 1, 'CARRIER_DELAY': 0.0, 'WEATHER_DELAY': 0.0}]
+    [{'id': 1, 'YEAR': 2018, 'FL_DATE': '3/18/2018', 'UNIQUE_CARRIER': 'OH', 'AIRLINE_ID': 20397, 'CARRIER': 'OH', 'ORIGIN_AIRPORT_ID': 11057, 'ORIGIN_CITY_MARKET_ID': 31057, 'ORIGIN': 'CLT', 'ORIGIN_CITY_NAME': 'Charlotte, NC', 'DEST_AIRPORT_ID': 10434, 'DEST_CITY_MARKET_ID': 30434, 'DEST': 'AVP', 'DEST_CITY_NAME': 'Scranton/Wilkes-Barre, PA', 'DEP_DELAY_NEW': 0.0, 'TAXI_OUT': 28.0, 'WHEELS_OFF': 1647.0, 'WHEELS_ON': 1757.0, 'TAXI_IN': 3.0, 'ARR_DELAY_NEW': 0.0, 'CANCELLED': 0, 'DIVERTED': 0, 'FLIGHTS': 1, 'CARRIER_DELAY': nan, 'WEATHER_DELAY': nan}]
     
 
 
@@ -176,7 +162,7 @@ conn.execute(Mtable.delete())
 
 
 
-    <sqlalchemy.engine.result.ResultProxy at 0x195b21a9828>
+    <sqlalchemy.engine.result.ResultProxy at 0x1b988694f28>
 
 
 
@@ -190,7 +176,7 @@ conn.execute(Mtable.insert(), Mdata)
 
 
 
-    <sqlalchemy.engine.result.ResultProxy at 0x195b21dab70>
+    <sqlalchemy.engine.result.ResultProxy at 0x1b9886b4be0>
 
 
 
@@ -203,10 +189,10 @@ conn.execute("select * from airportdata limit 5").fetchall()
 
 
 
-    [(4, 2018, '3/21/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 39.0, 12.0, 1721.0, 1839.0, 2.0, 23.0, 0.0, 0.0, 1.0, 0.0, 0.0),
-     (8, 2018, '3/25/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 70.0, 15.0, 1755.0, 1916.0, 5.0, 63.0, 0.0, 0.0, 1.0, 4.0, 0.0),
-     (10, 2018, '3/27/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 77.0, 13.0, 1800.0, 1919.0, 4.0, 65.0, 0.0, 0.0, 1.0, 58.0, 0.0),
-     (13, 2018, '3/30/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 86.0, 19.0, 1815.0, 1921.0, 3.0, 66.0, 0.0, 0.0, 1.0, 66.0, 0.0),
-     (16, 2018, '3/2/2018', 'OH', '20397', 'OH', '15624', '31504', 'VPS', 'Valparaiso, FL', '11057', '31057', 'CLT', 'Charlotte, NC', 43.0, 15.0, 1700.0, 1915.0, 5.0, 35.0, 0.0, 0.0, 1.0, 20.0, 0.0)]
+    [(1, 2018, '3/18/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 0.0, 28.0, 1647.0, 1757.0, 3.0, 0.0, 0.0, 0.0, 1.0, None, None),
+     (2, 2018, '3/19/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 0.0, 17.0, 1647.0, 1806.0, 4.0, 0.0, 0.0, 0.0, 1.0, None, None),
+     (3, 2018, '3/20/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 3.0, 22.0, 1655.0, 1807.0, 4.0, 0.0, 0.0, 0.0, 1.0, None, None),
+     (4, 2018, '3/21/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 39.0, 12.0, 1721.0, 1839.0, 2.0, 23.0, 0.0, 0.0, 1.0, 0.0, 0.0),
+     (5, 2018, '3/22/2018', 'OH', '20397', 'OH', '11057', '31057', 'CLT', 'Charlotte, NC', '10434', '30434', 'AVP', 'Scranton/Wilkes-Barre, PA', 0.0, 33.0, 1658.0, 1817.0, 3.0, 2.0, 0.0, 0.0, 1.0, None, None)]
 
 
