@@ -50,11 +50,8 @@
             <!--summary needs to be updated -->
             <p>The purpose of this project was to identify the most popular flight routes by airline between various destination cities.
             </p>
-            <p> We reviewed and analysed the flight data from Federal Aviation Administration website.
-            </p>
-            <p> For more analyzed results, please click the "Airport Stats Summary" and "Airport Stats Details".
-            </p>
-            <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('Plane')}}"></iframe>
+            <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('counts')}}"></iframe>
+            <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('percentages')}}"></iframe>
             <br>
           </div>
         </div>
