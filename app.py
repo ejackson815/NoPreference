@@ -173,5 +173,23 @@ def c(airport="None"):
 
     return jsonify(data_ls4)
 
+# call total count by outbound destination for each airport
+@app.route("/D/<airport>")
+@app.route("/D")
+def d(airport="None"):
+    # query for the sample data
+    data_ls5 = []
+    for i in session.query(Airportdata.CARRIER, func.avg(Airportdata.DEP_DELAY_NEW), func.avg(Airportdata.WEATHER_DELAY),func.avg(Airportdata.ARR_DELAY_NEW)).\
+        filter(Airportdata.ORIGIN == "LAX").group_by(Airportdata.CARRIER).all():
+            item = {}
+            item['acarrier'] = i[0]
+            item['depart_delay'] = int(i[1])
+            item['weather_delay'] = int(i[2])
+            item['arrival_delay'] = int(i[3])
+            data_ls5.append(item)
+
+    return jsonify(data_ls5)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
