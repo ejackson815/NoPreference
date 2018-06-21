@@ -122,6 +122,7 @@ def ord():
 
     return jsonify(data_ls2)
 
+# call total departure, cancel anad arrival by departure airport
 @app.route("/A/<airport>")
 @app.route("/A")
 def a(airport="None"):
@@ -138,6 +139,7 @@ def a(airport="None"):
 
     return jsonify(data_ls2)
 
+# call total departure, cancel anad arrival by departure airport by carrier
 @app.route("/B/<airport>")
 @app.route("/B")
 def b(airport="None"):
@@ -153,6 +155,23 @@ def b(airport="None"):
             data_ls3.append(item)
 
     return jsonify(data_ls3)
+
+# call total count by outbound destination for each airport
+@app.route("/C/<airport>")
+@app.route("/C")
+def c(airport="None"):
+    # query for the sample data
+    data_ls4 = []
+    for i in session.query(Airportdata.ORIGIN, Airportdata.DEST, func.count(Airportdata.DEST)).\
+        filter(Airportdata.ORIGIN == "LAX").group_by(Airportdata.DEST).\
+        order_by(func.count(Airportdata.DEST).desc()).all():
+            item = {}
+            item['aorigin'] = i[0]
+            item['destination'] = i[1]
+            item['tcount'] = int(i[2])
+            data_ls4.append(item)
+
+    return jsonify(data_ls4)
 
 if __name__ == '__main__':
     app.run(debug=True)
