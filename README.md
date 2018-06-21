@@ -50,7 +50,7 @@ The visualization must include:
 ![5](/images/5.jpg)
 
 ### Restrictions
-*	Timing: We only selected a short period of the time (March 2018) to explore the data as the dataset is enomously large and cannot be successfully 
+*	Timing: We only selected a short period of the time (March 2018) to explore the data as the dataset is enomously large and cannot be loaded to github successfully 
  
 ### References
 * [https://aspm.faa.gov/apm/sys/AnalysisAP.asp](https://aspm.faa.gov/apm/sys/AnalysisAP.asp)
