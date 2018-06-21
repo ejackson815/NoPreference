@@ -69,14 +69,232 @@ The visualization must include:
 * [https://status.flightstats.com/](https://status.flightstats.com/)
 
 ### Data Manipulation and Observation
-* Daniel to input
-* Daniel to input
-* Daniel to input
+
 ```python
-// please put your python code here
+
+#SQLalchemy to bring Transtats airport data csv into SQLite 
+#import dependencies
+import pandas as pd
+import numpy as np
+import sqlite3
+from pandas.io import sql
+import subprocess
+
+# import SQLalchemy dependencies
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
+
+from sqlalchemy import Column, Integer, String, Float
+
+import pymysql
+pymysql.install_as_MySQLdb()
+
+#read csv into dataframe
+df = pd.read_csv('transtats_final.csv', sep=',',  dtype='unicode')
+
+#inspect dataframe
+df.head(10)
+
+# In and output file paths
+in_csv = 'transtats_final.csv'
+out_sqlite = 'transtats_dataset_Finalversion.sqlite'
+
+table_name = 'my_table_finalversion' # name for the SQLite database table
+chunksize = 10000000 # number of lines to process at each iteration
+
+# columns that should be read from the CSV file
+columns = ['CARRIER', 'ORIGIN', 'ORIGIN_CITY_NAME', 'DEST', 'DEST_CITY_NAME', 'DEP_DELAY', 'WEATHER_DELAY', 'LATE_AIRCRAFT_DELAY'] 
+
+# Get number of lines in the CSV file
+nlines = subprocess.check_output(['wc', '-l', in_csv])
+nlines = int(nlines.split()[0]) 
+
+# connect to database
+cnx = sqlite3.connect(out_sqlite)
+
+# Iteratively read CSV and dump lines into the SQLite table
+for i in range(0, nlines, chunksize):  # change 0 -> 1 if your csv file contains a column header
+    
+    df = pd.read_csv(in_csv,  
+            header=None,  # no header, define column header manually later
+            nrows=chunksize, # number of rows to read at each iteration
+            skiprows=i)   # skip rows that were already read
+
+# columns to read        
+df.columns = columns
+
+sql.to_sql(df, 
+            name=table_name, 
+            con=cnx, 
+            index=False, # don't use CSV file index
+            index_label='ORIGIN', # use a unique column from DataFrame as index
+            if_exists='append') 
+
+
+
+#write dataframe to SQlite
+df.to_sql(out_sqlite, cnx, schema=None, if_exists='fail', index=True, index_label=None, chunksize=None, dtype=None)
 ```
 
+
 ```sql
-// please put your sql query here
+
+/*SQL queries to analyze Transtats Airport data */
+/* Total Flights out of LAX*/
+SELECT ORIGIN, COUNT (ORIGIN)
+FROM my_table_finalversion
+WHERE ORIGIN= 'LAX' ;
+
+/* Total Flights out of ORD*/
+SELECT ORIGIN, COUNT (ORIGIN)
+FROM my_table_finalversion
+WHERE ORIGIN= 'ORD' ;
+
+/* Total Flights out of JFK*/
+SELECT ORIGIN, COUNT (ORIGIN)
+FROM my_table_finalversion
+WHERE ORIGIN= 'JFK' ;
+
+/* # of Outbound flights ranked by destination for LAX*/
+SELECT ORIGIN, DEST, COUNT(DEST)
+FROM my_table_finalversion
+Where Origin= 'LAX'
+GROUP BY DEST
+ORDER BY COUNT(DEST) DESC;
+
+/* # of Outbound flights ranked by destination for JFK*/
+SELECT ORIGIN, DEST, COUNT(DEST)
+FROM my_table_finalversion
+Where Origin= 'JFK'
+GROUP BY DEST
+ORDER BY COUNT(DEST) DESC;
+
+/* # of Outbound flights ranked by destination for ORD*/
+SELECT ORIGIN, DEST, COUNT(DEST)
+FROM my_table_finalversion
+Where Origin= 'ORD'
+GROUP BY DEST
+ORDER BY COUNT(DEST) DESC;
+
+/* AVG departure delay for LAX/ORD/JFK*/
+SELECT ORIGIN, avg(DEP_DELAY_NEW)
+FROM my_table_finalversion
+WHERE ORIGIN IN ('LAX', 'JFK', 'ORD')
+GROUP BY Origin
+ORDER BY avg(DEP_DELAY_NEW) DESC;
+
+/* AVG late aircraft delay for LAX/ORD/JFK*/
+SELECT ORIGIN, avg(LATE_AIRCRAFT_DELAY)
+FROM my_table_finalversion
+WHERE ORIGIN IN ('LAX', 'JFK', 'ORD')
+GROUP BY Origin
+ORDER BY avg(LATE_AIRCRAFT_DELAY) DESC;
+
+/* Top 10 outbound destinations */
+
+/* LAX */
+SELECT ORIGIN, DEST, COUNT(DEST)
+FROM my_table_finalversion
+Where Origin= 'LAX'
+GROUP BY DEST
+ORDER BY COUNT(DEST) DESC
+Limit 10;
+
+/* ORD */
+SELECT ORIGIN, DEST, COUNT(DEST)
+FROM my_table_finalversion
+Where Origin= 'ORD'
+GROUP BY DEST
+ORDER BY COUNT(DEST) DESC
+Limit 10;
+
+/* JFK */
+SELECT ORIGIN, DEST, COUNT(DEST)
+FROM my_table_finalversion
+Where Origin= 'JFK'
+GROUP BY DEST
+ORDER BY COUNT(DEST) DESC
+Limit 10;
+
+
+/*Total Departures
+-broken down by airline (top 3 and top 5) for LAX/ORD/JFK
+*/
+
+/* LAX */)
+SELECT ORIGIN, CARRIER, COUNT(*) FROM my_table_finalversion WHERE ORIGIN='LAX' GROUP BY CARRIER ORDER BY COUNT(*) DESC
+LIMIT 3;
+
+SELECT ORIGIN, CARRIER, COUNT(*) FROM my_table_finalversion WHERE ORIGIN='LAX' GROUP BY CARRIER ORDER BY COUNT(*) DESC
+LIMIT 5;
+
+/* ORD */
+SELECT ORIGIN, CARRIER, COUNT(*) FROM my_table_finalversion WHERE ORIGIN='ORD' GROUP BY CARRIER ORDER BY COUNT(*) DESC
+LIMIT 3;
+
+SELECT ORIGIN, CARRIER, COUNT(*) FROM my_table_finalversion WHERE ORIGIN='ORD' GROUP BY CARRIER ORDER BY COUNT(*) DESC
+LIMIT 5;
+
+/* JFK */
+SELECT ORIGIN, CARRIER, COUNT(*) FROM my_table_finalversion WHERE ORIGIN='JFK' GROUP BY CARRIER ORDER BY COUNT(*) DESC
+LIMIT 3;
+
+SELECT ORIGIN, CARRIER, COUNT(*) FROM my_table_finalversion WHERE ORIGIN='JFK' GROUP BY CARRIER ORDER BY COUNT(*) DESC
+LIMIT 5;
+
+
+
+/* Total Arrivals
+-broken down by airline (top 3 or 5) */
+
+/*LAX*/
+SELECT DEST, CARRIER, COUNT(*) 
+FROM my_table_finalversion
+WHERE DEST= 'LAX' 
+GROUP BY CARRIER  ORDER BY COUNT(*) DESC
+LIMIT 3;
+
+SELECT DEST, CARRIER, COUNT(*) 
+FROM my_table_finalversion
+WHERE DEST= 'LAX' 
+GROUP BY CARRIER  ORDER BY COUNT(*) DESC
+LIMIT 5;
+
+/*ORD*/
+SELECT DEST, CARRIER, COUNT(*) 
+FROM my_table_finalversion
+WHERE DEST= 'ORD' 
+GROUP BY CARRIER  ORDER BY COUNT(*) DESC
+LIMIT 3;
+
+SELECT DEST, CARRIER, COUNT(*) 
+FROM my_table_finalversion
+WHERE DEST= 'ORD' 
+GROUP BY CARRIER  ORDER BY COUNT(*) DESC
+LIMIT 5;
+
+/*JFK*/
+SELECT DEST, CARRIER, COUNT(*) 
+FROM my_table_finalversion
+WHERE DEST= 'JFK' 
+GROUP BY CARRIER ORDER BY COUNT(*) DESC
+LIMIT 3;
+
+SELECT DEST, CARRIER, COUNT(*) 
+FROM my_table_finalversion
+WHERE DEST= 'JFK' 
+GROUP BY CARRIER ORDER BY COUNT(*) DESC
+LIMIT 5;
+
+
+/*Avg Weather Delay for LAX/JFK/ORD */
+
+SELECT ORIGIN, AVG (WEATHER_DELAY)
+FROM my_table_finalversion
+WHERE ORIGIN IN ('LAX', 'JFK', 'ORD')
+GROUP BY Origin
+ORDER BY AVG (WEATHER_DELAY) DESC;
+
 ```
 
