@@ -43,32 +43,32 @@ def home():
     return render_template("index.html")
 
 @app.route("/plane")
-def Plane():
+def plane():
     """Return the dashboard homepage."""
     return render_template("plane.html")
 
 @app.route("/detail")
-def Detail():
+def detail():
     """Return the dashboard homepage."""
     return render_template("detail.html")
 
 @app.route("/summary")
-def Summary():
+def summary():
     """Return the dashboard homepage."""
     return render_template("summary.html")
 
 @app.route("/summary_counts")
-def Counts():
+def counts():
     """Return the dashboard homepage."""
     return render_template("summary_counts.html")
 
 @app.route("/summary_percentages")
-def Percentages():
+def percentages():
     """Return the dashboard homepage."""
     return render_template("summary_percentages.html")
 
 @app.route("/flight_mapping")
-def Mapping():
+def mapping():
     """Return the dashboard homepage."""
     return render_template("flight_mapping.html")
 

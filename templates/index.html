@@ -20,21 +20,21 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <!-- Create Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: blue,#b2e6ff;">
       <div class="container-fluid">
-        <a class="navbar-brand bg-primary text-white m-2 pl-2 pr-2" href="index.html">Come Fly with Me</a>
+        <a class="navbar-brand bg-primary text-white m-2 pl-2 pr-2" href="{{ url_for('home')}}">Come Fly with Me</a>
         <button class="navbar-toggler bg-primary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Create collapse bar -->
-          <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-            <ul class="nav navbar-nav">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="nav justify-content-end nav-pills nav-fills">
           <!-- Create dropdown menu -->
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('Plane')}}">Airport Stats Summary</a>
+              <li class="nav-item justify-content-end">
+                <a class="ml-5 mr-2 nav-link active text-white" href="{{ url_for('summary')}}">Airport Stats Summary</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="data.html">Airport Stats Details</a>
+                <a class="ml-2 nav-link active text-white" href="{{ url_for('detail')}}">Airport Stats Details</a>
               </li>
            </ul>
         </div>
@@ -47,27 +47,17 @@
           <div class="thumbnail">
             <h1 class="text-white pt-4">Summary</h1>
             <hr>
-            <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('Plane')}}"></iframe>
-
             <!--summary needs to be updated -->
-            <p>The purpose of this project was to analyze how weather changes as you get closer to the equator. To accomplish this analysis, we first pulled data from The OpenWeather Map API to assembly a dataset on over 500 cities. </p>
+            <p>The purpose of this project was to identify the most popular flight routes by airline between various destination cities.
+            </p>
+            <p> We reviewed and analysed the flight data from Federal Aviation Administration website.
+            </p>
+            <p> For more analyzed results, please click the "Airport Stats Summary" and "Airport Stats Details".
+            </p>
+            <iframe id="s-chart" class="embed-responsive-item" src="{{ url_for('Plane')}}"></iframe>
             <br>
-    
           </div>
         </div>
-        <!--show case need to be updated -->
-        <div class="col-lg-12 ml-6 mt-12" style="background-color: blue,#b2e6ff;">
-          <h2 class="text-white pt-4">Show Case</h2>
-          <hr>
-          <a href="summary.html" target="_blank">
-            <img class="img-responsive" src="images/temp.png" alt="Latitude vs Max Temperture" style="width:45%"></a>
-          <a href="humidity.html" target="_blank">
-            <img class="img-responsive" src="images/humidity.png" alt="Latitude vs Max Temperture" style="width:45%"></a>
-          <a href="cloudiness.html" target="_blank">
-            <img class="img-responsive" src="images/cloudiness.png" alt="Latitude vs Max Temperture" style="width:45%"></a>
-        
-        </div>
-        </hr>
       </div>
     </div>
   </body>
@@ -75,7 +65,7 @@
   <!--Footer-->
   <footer class="footer">
     <!--/.Footer Links--> <!--Copyright-->
-    <div class="container-fluid p-3 mb-2 text-white text-center" style ="background:linear-gradient(blue,#b2e6ff)">
+    <div class="container-fluid p-3 mb-2 text-white text-center" style ="background:#bee3f4">
         No Preference @ Copyright
     </div>
       <!--/.Copyright-->

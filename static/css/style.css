@@ -9,26 +9,21 @@ p {
     font-size: 0.875em;
     font-style: normal;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
 }
 
 p.italic {
     font-size: 0.875em;
     font-style: italic;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
 }
 
 p.oblique {
     font-size: 0.875em;
     font-style: oblique;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-#nav-title {
-    background-color: blue;
     color: white;
-    margin-left: 40px;
-    font-size: 40px;
-    font-style:italic;
 }
 
 .navbar-toggle {
@@ -39,30 +34,6 @@ p.oblique {
     background-color: white;
 }
 
-#main-viz {
-    padding: 30px 40px 30px 40px;
-    width: 100%;
-    float: left; 
-    margin : 5px;
-   }
-   
-#landing-viz {
-    padding:10px 10px 10px 10px;
-    width: 100%;
-    height: 100%;
-}
-
-#landing-sel {
-    width: 100%;
-    height: 100%;
-    border: 1px solid teal;
-}
-
-#dframe {
-    background-color: white;
-    color: black:
-
-}
 
 #summary {
     margin: 10px;
@@ -99,35 +70,7 @@ h2 {
 .box-left {
     padding: 10px;
 }
-  
-.box-right {
-    padding: 10px;
-}
 
-@media (
-    min-width: 1200px) {
-    .row.row-grid [class*="col-lg-"] + [class*="col-lg-"] {
-        margin-top: 0;
-    }
-}
-@media (
-    min-width: 992px) {
-    .row.row-grid [class*="col-md-"] + [class*="col-md-"] {
-        margin-top: 0;
-    }
-}
-@media (
-    min-width: 768px) {
-    .row.row-grid [class*="col-sm-"] + [class*="col-sm-"] {
-        margin-top: 0;
-    }
-}
-@media (
-    min-width: 768px) {
-  .row.row-grid [class*="col-xs-"] + [class*="col-xs-"] {
-      margin-top: 0;
-  }
-}
 
 .footer {
     border-top:  5px blue,#b2e6ff;;
