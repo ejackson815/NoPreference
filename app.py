@@ -52,6 +52,11 @@ def Detail():
     """Return the dashboard homepage."""
     return render_template("detail.html")
 
+@app.route("/summary")
+def Summary():
+    """Return the dashboard homepage."""
+    return render_template("summary.html")
+
 @app.route("/summary_counts")
 def Counts():
     """Return the dashboard homepage."""
