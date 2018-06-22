@@ -30,7 +30,7 @@ Due to the volume of flights per day in the United States, we will focus on 3 ai
 *   LAX airport has the higest delayed flights compared to all airports in US, total counts is 4362, total percentage is 4.42%
 *   JetBlue Airways is the most likely delayed Airline, it has the most hight delayed flights percentage 9.68%. Delta Air Lines is the on time airline in the all airlines in US, delayed fligts percentage is 3.93%.
 *    GUM is the most likely delayed Airport, it has the most hight delayed flights percentage 1.25%. 
-*   Although travelers at JFK and ORD experience over two times as much average weather delay time as compared to LAX              travelers, LAX had the highest average departure delay and average late aircraft delay time among the 3 airports.
+*   Although travelers at JFK and ORD experience over two times as much average weather delay time as compared to LAX travelers, LAX had the highest average departure delay and average late aircraft delay time among the 3 airports.
 *   Each airport had the highest number of departures and arrivals from the same airline (LAX-Southwest Airlines, JFK-Jet Blue     Airways, ORD-Sky West Airlines)
 *   Among all flight activity between LAX, JFK, and ORD the 3 flight routes with the highest # of flights were (1. ORD to LGA,     2. LAX to SFO, 3. LAX to JFK).
 
