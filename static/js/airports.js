@@ -182,19 +182,31 @@ var DL_hub = [];
 
 
 // Perform a GET request to the query URL
-d3.json(airports, function(data) {
+Promise.all([d3.json(airports), $.get('/stats-by-departure-airport')]).then(function(allData) {
+  var jsonData = allData[0];
+  var flightData = allData[1];
+  console.log('arrivals ? -> ', flightData);
   // Once we get a response, send the data.features object to the createFeatures function
-  createFeatures(data.features);
+  createFeatures(jsonData.features, flightData);
 });
 
-function createFeatures(airportData) {
+
+function createFeatures(airportData, flightData) {
 
   // Define a function we want to run once for each feature in the features array
   // Give each feature a popup describing the place and time of the earthquake
   var airport = L.geoJson(airportData, {
     onEachFeature: function (feature, layer){
-      layer.bindPopup("<h3>" + feature.properties.code + "<br> Airport: " + feature.properties.name +
-      "</h3><hr><p>" + feature.geometry.coordinates + "</p>" + "<h3> total_departure:  "  + "</h3>"  +"<h3> total_cancelled:  "  + "</h3>" + "<h3> total_arrival:  "  + "</h3>" );
+      var airportData = flightData[feature.properties.code];
+      layer.bindPopup(`
+      <h3> ${feature.properties.code}<br>
+      Airport: ${feature.properties.name} </h3><hr>
+      <p> ${feature.geoJson.coordinates} <br>
+      departures: ${airportData.total_departure} <br>
+      cancelled: ${aiportData.total_cancelled} <br>
+      arrivals: ${airportData.total_arrival} <br>
+      </p>
+      `);
     }
     });
 
@@ -298,4 +310,6 @@ function createMap(airport) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
 }
+

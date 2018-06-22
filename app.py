@@ -72,6 +72,13 @@ def mapping():
     """Return the dashboard homepage."""
     return render_template("airports.html")
 
+@app.route("/names")
+def names():
+    all_samples = session.query(Airportdata).ORIGIN
+    all_samples_df = pd.read_sql_query(all_samples, session.bind)
+    return jsonify(list(all_samples_df.columns))
+
+
 @app.route("/rawdata")
 def rawdata():
     # query for the sample data
@@ -132,7 +139,6 @@ def jfk():
 
     return jsonify(data_ls2)
 
-
 @app.route("/ORD")
 def ord():
     # query for the sample data
@@ -147,13 +153,32 @@ def ord():
 
     return jsonify(data_ls2)
 
+
+@app.route("/stats-by-departure-airport")
+def statsByDepartureAirport() : 
+    data = {}
+    # temp = map(lambda airport: airport[0], session.query(Airportdata.ORIGIN).distinct(Airportdata.ORIGIN).all())
+    # airports = list(set(temp))
+    # for airportCode in airports: 
+    for airport in session.query(Airportdata.ORIGIN).distinct(Airportdata.ORIGIN).all():
+        airportCode = airport[0]
+        for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
+                filter(Airportdata.ORIGIN == airportCode).all():
+            item = {}
+            item['total_departure'] = int(i[0])
+            item['total_cancelled'] = int(i[1])
+            item['total_arrival'] = int(i[0]) - int(i[1])
+            data[airportCode] = item
+            pass
+        pass
+    return jsonify(data)
+
+
 # call total departure, cancel anad arrival by departure airport
 @app.route("/A/<airport>")
-@app.route("/A")
-def a(airport="None"):
+def a(airport=None):
     # query for the sample data
     data_ls2 = []
-    ap = airport
     for i in session.query(func.count(Airportdata.UNIQUE_CARRIER),func.sum(Airportdata.CANCELLED)).\
     filter(Airportdata.ORIGIN == airport).all():
         item = {}
@@ -178,8 +203,8 @@ def b(airport="None"):
             item['total_cancelled'] = int(i[2])
             item['total_arrival'] = int(i[2]) - int(i[1])
             data_ls3.append(item)
-
     return jsonify(data_ls3)
+
 
 # call total count by outbound destination for each airport
 @app.route("/C/<airport>")
