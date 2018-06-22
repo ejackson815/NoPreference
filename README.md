@@ -25,9 +25,11 @@ Due to the volume of flights per day in the United States, we will focus on 3 ai
 *	Most popular Routes by Airline and by City
 
 ### Summary of Analysis/Finding/Results: 
-*   Southwest Airlines had the most delayed flights, with a total count of 22257 delayed flights, and total percentage of          22.54% during March 2018.
-*   Hawaiian Airlines had the fewest delayed flights of any airline, with a total count of 961 delayed flights, and total          percentage of 0.97% during March 2018.
-*   LAX airport had the most delayed flights, with a total count of 4362 delayed flights, and total percentage of 4.42% during     March 2018.
+*   Southwest Airlines has the highest delayed flights compared to all the airlines in US, the total counts is 22257, total percentage is 22.54% on March 2018
+*   Hawaiian Airlines is the most on time airline on March 2018 compared to all the airlines in US,the total counts is 961, total percentage is 0.97%
+*   LAX airport has the higest delayed flights compared to all airports in US, total counts is 4362, total percentage is 4.42%
+*   JetBlue Airways is the most likely delayed Airline, it has the most hight delayed flights percentage 9.68%. Delta Air Lines is the on time airline in the all airlines in US, delayed fligts percentage is 3.93%.
+*    GUM is the most likely delayed Airport, it has the most hight delayed flights percentage 1.25%. 
 *   Although travelers at JFK and ORD experience over two times as much average weather delay time as compared to LAX              travelers, LAX had the highest average departure delay and average late aircraft delay time among the 3 airports.
 *   Each airport had the highest number of departures and arrivals from the same airline (LAX-Southwest Airlines, JFK-Jet Blue     Airways, ORD-Sky West Airlines)
 *   Among all flight activity between LAX, JFK, and ORD the 3 flight routes with the highest # of flights were (1. ORD to LGA,     2. LAX to SFO, 3. LAX to JFK).
