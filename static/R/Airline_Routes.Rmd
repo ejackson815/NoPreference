@@ -33,7 +33,7 @@ colors <- pal(100)
 
 for (i in 1:length(carriers)) {
   
-  pdf(paste("carrier", carriers[i], ".pdf", sep=""), width=11, height=7)
+  jpeg(paste("carrier", carriers[i], ".jpg", sep=""), width=480, height=480)
   map("world", col="#191919", fill=TRUE, bg="white", lwd=0.05, xlim=xlim, ylim=ylim)
   fsub <- flights[flights$airline == carriers[i],]
   fsub <- fsub[order(fsub$cnt),]
